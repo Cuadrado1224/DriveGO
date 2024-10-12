@@ -31,12 +31,15 @@
     transition: 0.3s;
     margin: 0 100px;
     z-index: 1;
+    position: relative;
 
   }
-
+  .nav-item.active {
+    color: #34cdab; 
+}
   
   .nav-item:not(.is-active):hover {
-    color: black;
+    color: #32d874;
   }
   
   .nav-item:not(.is-active):hover::before {
@@ -51,17 +54,7 @@
     left: 0;
     width: 100%;
   }
-  .nav-indicator{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 5px;
-    width: 100px; /* Ajusta el tamaño según el ancho del enlace activo */
-    background-color: white;
-    z-index: 1;
-    border-radius: 8px 8px 0 0;
-    transition: left 0.4s ease-out;
-  }
+ 
   .navbar a {
     position: relative;
     font-size: 18px;
@@ -87,5 +80,4 @@
     transform: scaleX(1);
     transform-origin: bottom left;
   }
-  
   

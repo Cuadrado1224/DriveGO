@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "/Public/Logo.jpg";
 import "../Estilos/Navbar.css";
 import { Link } from "react-router-dom";
@@ -26,6 +26,11 @@ const links = [
   }
 ];
 const Navbar = () => {
+  const [activeLink, setActiveLink] = useState("/home"); 
+
+  const handleLinkClick = (href) => {
+    setActiveLink(href); 
+  };
   return (
     <header className="header">
       <a href="/" className="logo">
@@ -33,12 +38,13 @@ const Navbar = () => {
       </a>
       <nav className="navbar">
         {links.map((x) => (
-         <Link key={x.href} to={x.href} className="nav-item">
+         <Link key={x.href} to={x.href}  className={`nav-item ${activeLink === x.href ? "active" : ""}`}
+         onClick={() => handleLinkClick(x.href)} >
          {x.icon && <i className={x.icon}></i>} 
          {x.name}
        </Link>
         ))}
-                  
+             
                 
       </nav>
     </header>
