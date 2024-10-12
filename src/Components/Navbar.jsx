@@ -1,6 +1,30 @@
 import React from "react";
 import logo from "/Public/Logo.jpg";
-import "./Navbar.css"
+import "../Estilos/Navbar.css";
+import { Link } from "react-router-dom";
+const links = [
+  {
+    name: "Home",
+    href: "/home",
+  },
+  {
+    name: "Lugares",
+    href: "/lugares",
+  },
+  {
+    name: "Alquiler",
+    href: "/alquiler",
+  },
+  {
+    name: "Contactos",
+    href: "/contactos",
+  },
+  {
+   
+    href: "/sesion",
+    icon: "fa-solid fa-user",
+  }
+];
 const Navbar = () => {
   return (
     <header className="header">
@@ -8,25 +32,14 @@ const Navbar = () => {
         <img src={logo} alt="Logo de la empresa" />
       </a>
       <nav className="navbar">
-          <a href="/" className="nav-item " active-color="white">
-            Home
-          </a>
-          <a href="/" className="nav-item" active-color="white">
-            Lugares
-          </a>
-          <a href="/" className="nav-item" active-color="white">
-            Alquiler
-          </a>
-          <a href="/" className="nav-item" active-color="white">
-            Contactos
-          </a>
-          
-          <a href="/">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </a>
-          <a href="/">
-            <i className="fa-solid fa-user"></i>
-          </a>
+        {links.map((x) => (
+         <Link key={x.href} to={x.href} className="nav-item">
+         {x.icon && <i className={x.icon}></i>} 
+         {x.name}
+       </Link>
+        ))}
+                  
+                
       </nav>
     </header>
   );
