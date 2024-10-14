@@ -24,11 +24,11 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i class="fa-brands fa-facebook"></i>
+          <i className="fa-brands fa-facebook"></i>
           Facebook
         </a>
         <a href="https://WhatsApp.com" target="_blank" rel="noopener noreferrer">
-          <i class="fa-brands fa-whatsapp"></i>
+          <i className="fa-brands fa-whatsapp"></i>
           Whatsapp
         </a>
         <a
@@ -36,7 +36,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i class="fa-brands fa-instagram"></i>
+          <i className="fa-brands fa-instagram"></i>
           Instagram
         </a>
       </div>
