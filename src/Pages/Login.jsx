@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "../Styles/Login.css";
+import { Link} from "react-router-dom";
 import axios from 'axios';
 
 const Login = ({ closeModal }) => {
@@ -8,7 +9,7 @@ const Login = ({ closeModal }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost/drivego-main/api/controllers/login.php", {
+      const response = await axios.post("http://localhost:81/drivego-main/api/controllers/login.php", {
         nombre_usuario, 
         contrasena,
       });
@@ -49,6 +50,12 @@ const Login = ({ closeModal }) => {
         />
         <button onClick={handleLogin}>Iniciar Sesión</button>
        
+        <div className="toRegister">
+          <span>
+            ¿Aún no tienes una cuenta? 
+            <Link to="/register" onClick={closeModal}>Registrate</Link> {/* Agregado el onClick */}
+          </span>
+        </div>
       </div>
     </div>
   );
