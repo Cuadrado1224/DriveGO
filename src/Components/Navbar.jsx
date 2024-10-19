@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import logo from "/Public/Logo.jpg";
 import "../Estilos/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import Modal from "../Pantallas/Inicio_de_sesion";
 const links = [
   {
     name: "Home",
@@ -19,18 +20,24 @@ const links = [
     name: "Contactos",
     href: "/contactos",
   },
-  {
-   
-    href: "/sesion",
-    icon: "fa-solid fa-user",
-  }
+  
 ];
 const Navbar = () => {
-  const [activeLink, setActiveLink] = useState("/home"); 
+  const [activeLink, setActiveLink] = useState("/home");
+  const [showModal, setShowModal] = useState(false); 
 
   const handleLinkClick = (href) => {
-    setActiveLink(href); 
+    setActiveLink(href);
   };
+
+  const handleSessionClick = () => {
+    setShowModal(true); 
+  };
+
+  const closeModal = () => {
+    setShowModal(false); 
+  };
+
   return (
     <header className="header">
       <a href="/" className="logo">
@@ -45,8 +52,12 @@ const Navbar = () => {
        </Link>
         ))}
              
-                
+          <button className="Button" onClick={handleSessionClick}>
+          <i className="fa-solid fa-user"></i>
+          <i>Iniciar Sesión</i>
+        </button>
       </nav>
+      {showModal && <Modal closeModal={closeModal} />}
     </header>
   );
 };
