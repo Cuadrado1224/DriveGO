@@ -14,8 +14,8 @@ global $pdo;
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$nombre_usuario = $data['nombre_usuario'] ?? null;  
-$contrasena = $data['contrasena'] ?? null;  
+$nombre_usuario = $data['username'] ?? null;  
+$contrasena = $data['password'] ?? null;  
 
 if ($nombre_usuario && $contrasena) {
     $stmt = $pdo->prepare("SELECT * FROM USUARIOS WHERE NOM_USU = :nombre_usuario");
