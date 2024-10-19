@@ -2,10 +2,10 @@ import React from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
-import Home from "./Pantallas/Home";
-import Lugares from "./Pantallas/Lugares";
-import Alquiler from "./Pantallas/Alquiler";
-import Contactos from "./Pantallas/Contactos";
+import Home from "./Pages/Home";
+import Lugares from "./Pages/Lugares";
+import Alquiler from "./Pages/Alquiler";
+import Contactos from "./Pages/Contactos";
 
 
 const App = () => {
@@ -19,7 +19,6 @@ const App = () => {
           <Route path="/lugares" element={<Lugares />} />
           <Route path="/alquiler" element={<Alquiler />} />
           <Route path="/contactos" element={<Contactos />} />
-          
         </Routes>
         <Footer />
       </div>

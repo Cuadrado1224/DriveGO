@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import logo from "/Public/Logo.jpg";
-import "../Estilos/Navbar.css";
+import "../Styles/Navbar.css";
 import { Link} from "react-router-dom";
-import Modal from "../Pantallas/Inicio_de_sesion";
+import Modal from "../Pages/Login";
 const links = [
   {
     name: "Home",
