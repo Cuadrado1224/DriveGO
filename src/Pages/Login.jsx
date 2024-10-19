@@ -10,8 +10,8 @@ const Login = ({ closeModal }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post("http://localhost:81/drivego-main/api/controllers/login.php", {
-        nombre_usuario, 
-        contrasena,
+        username, // Usa username
+      password, 
       });
 
       if (response.data.success) {
@@ -53,7 +53,7 @@ const Login = ({ closeModal }) => {
         <div className="toRegister">
           <span>
             ¿Aún no tienes una cuenta? 
-            <Link to="/register" onClick={closeModal}>Registrate</Link> {/* Agregado el onClick */}
+            <Link to="/register" onClick={closeModal}>Registrate</Link> 
           </span>
         </div>
       </div>

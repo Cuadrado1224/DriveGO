@@ -34,7 +34,7 @@ const Register = () => {
     try {
       const res = await axios.post("http://localhost:81/drivego-main/api/controllers/register.php", inputs);
       console.log(res);
-      navigate("/");
+      
     } catch (err) {
       setError(err.response.data);
     }
