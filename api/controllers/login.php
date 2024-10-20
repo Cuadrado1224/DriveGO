@@ -18,12 +18,13 @@ $nombre_usuario = $data['username'] ?? null;
 $contrasena = $data['password'] ?? null;  
 
 if ($nombre_usuario && $contrasena) {
+    // Selecciona al usuario por su nombre de usuario
     $stmt = $pdo->prepare("SELECT * FROM USUARIOS WHERE NOM_USU = :nombre_usuario");
     $stmt->bindParam(':nombre_usuario', $nombre_usuario);
     $stmt->execute();
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($usuario && $contrasena === $usuario['con_usu']) {
+    if ($usuario && password_verify($contrasena, $usuario['con_usu'])) {  // Verifica la contraseña con el hash
         echo json_encode([
             'success' => true,
             'message' => 'Login exitoso',
@@ -33,7 +34,7 @@ if ($nombre_usuario && $contrasena) {
         http_response_code(401); 
         echo json_encode([
             'success' => false,
-            'message' => 'Usuario o contraseña incorrectos '
+            'message' => 'Usuario o contraseña incorrectos'
         ]);
     }
 } else {
