@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Estilos/Registro_de_sesion.css";
+import "../Styles/Registro_de_sesion.css";
 import axios from "axios";
 import { validarEntrada, validarCadena } from '../Controles/Controles';
 import let_logo from "/Public/drive.png";

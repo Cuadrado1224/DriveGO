@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Estilos/Administrador.css";
+import "../Styles/Administrador.css";
 import Ges_user from "./Gestion_usuarios";
 import Ges_veh from "./Gestion_vehiculos";
 import Report from "./Reportes";
