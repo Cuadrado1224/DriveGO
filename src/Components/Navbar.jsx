@@ -39,7 +39,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="header">
+    <header className="header-nav">
       <a href="/" className="logo">
         <img src={logo} alt="Logo de la empresa" />
       </a>

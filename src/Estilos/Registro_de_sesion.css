@@ -1,0 +1,44 @@
+.modal-reg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-cont{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+.modal-cont h2{
+  padding-top: 50px;
+}
+.close-button-reg{
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-image: linear-gradient(to left,#34cdab,#32d874);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button i {
+    margin-right: 8px;
+  }
+  
