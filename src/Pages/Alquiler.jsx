@@ -1,5 +1,5 @@
 import React from 'react'
-import  "../Estilos/Alquiler.css";
+import  "../Styles/Alquiler.css";
 const Alquiler = () => {
   return (
     <div>Alquiler</div>

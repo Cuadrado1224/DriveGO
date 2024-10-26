@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from "/Public/image.png";
-import  "../Estilos/Banner.css";
+import  "../Styles/Banner.css";
 const Banner = () => {
   return (
     <div className="banner-conten">

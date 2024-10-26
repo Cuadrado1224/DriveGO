@@ -1,5 +1,5 @@
 import React from 'react'
-import  "../Estilos/Lugares.css";
+import  "../Styles/Lugares.css";
 const Lugares = () => {
   return (
     <div>holaaaaaaaa</div>
