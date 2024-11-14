@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Modal_Ges from "../Pages_Admin/Registro_adm";
+import EditUserModal from "../Pages_Admin/Edit_usu_adm";
 import "../Styles/Gestion_Usuario.css";
 
 const Gestion_usuarios = () => {
   const [showModal, setShowModal] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [editingUser, setEditingUser] = useState(null);
+
   const handleSessionClick = () => {
     setShowModal(true);
   };
@@ -11,20 +15,76 @@ const Gestion_usuarios = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-  const [users, setUsers] = useState([]);
+
+  const handleEditClick = (user) => {
+    setEditingUser(user);
+  };
+const handleDeleteClick=(user)=>{
+  if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+    fetch("http://localhost/Api-DriverGo/Borrar_Usuarios.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id_usu: user.id_usu }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status) {
+        
+          setUsers((prevUsers) => 
+            prevUsers.filter((user) => user.id_usu !== user)
+          );
+          alert(data.message);
+          window.location.reload(); 
+        } else {
+          console.error("Error al eliminar:", data.message);
+          alert("Error al eliminar el usuario");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error al eliminar el usuario");
+      });
+  }
+
+};
+  const handleSaveEdit = () => {
+    fetch("http://localhost/Api-DriverGo/Editar_usuarios.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editingUser),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status) {
+          setUsers((prevUsers) =>
+            prevUsers.map((user) =>
+              user.id_usu === editingUser.id_usu ? editingUser : user
+            )
+          );
+          setEditingUser(null);
+          alert(data.message)
+        } else {
+          console.error("Error al actualizar:", data.message);
+        }
+      })
+      .catch((error) => console.error("Error en la actualización:", error));
+  };
+
   useEffect(() => {
     fetch("http://localhost/Api-DriverGo/Ver_usuarios.php")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.users);
         if (data.status) {
           setUsers(data.users);
         } else {
-          console.error("Error: ", data.message);
+          console.error("Error:", data.message);
         }
       })
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -53,10 +113,14 @@ const Gestion_usuarios = () => {
                 <td className="table-cell">{user.cargo}</td>
                 <td className="table-cell">
                   <div className="btn-activs">
-                    <button className="btn-acti">
+                    <button
+                      className="btn-acti"
+                      onClick={() => handleEditClick(user)}
+                    >
                       <i className="fa-solid fa-pencil"></i>
                     </button>
-                    <button className="btn-acti">
+                    <button className="btn-acti"
+                    onClick={()=>handleDeleteClick(user)}>
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>
@@ -66,6 +130,16 @@ const Gestion_usuarios = () => {
           </tbody>
         </table>
       </div>
+
+      {editingUser && (
+        <EditUserModal
+          user={editingUser}
+          setUser={setEditingUser}
+          onSave={handleSaveEdit}
+          onCancel={() => setEditingUser(null)}
+        />
+      )}
+
       {showModal && <Modal_Ges closeModal={closeModal} />}
     </div>
   );
