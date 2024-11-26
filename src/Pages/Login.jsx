@@ -31,7 +31,7 @@ const Login = ({ closeModal }) => {
       if (response.data.status === true) {
         if (response.data.rol === "Cliente") {
           closeModal();
-        } else if (response.data.rol === "Adminr@gmail.com") {
+        } else if (response.data.rol === "Administrador") {
           console.log("Inicio de sesión como Administrador");
           closeModal();
           navigate("/administrador");
