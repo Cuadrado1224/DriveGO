@@ -11,6 +11,36 @@ const Gestion_vehiculos = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+  const handleDeleteClick=(vehi)=>{
+  if (window.confirm("¿Estás seguro de que deseas eliminar este vehiculo?")) {
+    fetch("http://localhost/Api-DriverGo/Borrar_vehiculo.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ mat_veh: vehi.mat_veh }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status) {
+        
+          setVeh((prevUsers) => 
+            prevUsers.filter((vehi) => vehi.mat_veh !== vehi)
+          );
+          alert(data.message);
+          window.location.reload(); 
+        } else {
+          console.error("Error al eliminar:", data.message);
+          alert("Error al eliminar el vehiculo");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error al eliminar el vehiculo");
+      });
+  }
+
+};
 
   useEffect(() => {
     fetch("http://localhost/Api-DriverGo/Ver_vehiculos.php")
@@ -61,7 +91,8 @@ const Gestion_vehiculos = () => {
                     <button className="btn-acti">
                       <i className="fa-solid fa-pencil"></i>
                     </button>
-                    <button className="btn-acti">
+                    <button className="btn-acti"
+                    onClick={()=>handleDeleteClick(vehi)}>
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>

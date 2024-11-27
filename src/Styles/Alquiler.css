@@ -1,0 +1,73 @@
+.vehiculos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.vehiculo-card {
+  width: 300px;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  background-color: #34CDAB;
+}
+
+.vehiculo-card:hover {
+  transform: scale(1.03);
+}
+
+
+.vehiculo-info {
+  padding: 15px;
+  text-align: center;
+}
+
+.vehiculo-info h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: black;
+}
+
+.vehiculo-info p {
+  color: black;
+  margin: 5px 0;
+}
+
+.vehiculo-details {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+}
+.buton {
+  text-align: center; 
+}
+
+.buton button {
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #011950; 
+  color: white; 
+  border: none; 
+  border-radius: 8px; 
+  font-size: 16px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+}
+
+.buton button:hover {
+  background-color: #02388f; 
+}
+
+.loading-container, 
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  text-align: center;
+  color: #2980b9;
+}

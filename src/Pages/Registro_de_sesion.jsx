@@ -92,7 +92,7 @@ const Registro = ({ closeModal }) => {
               value={cont2_usu}
               onChange={(e) => setCont2_usu(e.target.value)}
             />
-            <button onClick={handleLogin}>Registrarse</button>
+            <button className="btn_reg_ses"    onClick={handleLogin}>Registrarse</button>
           </div>
         </div>
       </div>

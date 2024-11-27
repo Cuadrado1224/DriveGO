@@ -19,8 +19,41 @@ const Registro_veh_adm = ({ closeModal }) => {
   const [kil_veh, setKil_veh] = useState("");
   const [num_ocu_veh, setNum_ocu_veh] = useState("");
   const [num_pue_veh, setNum_pue_veh] = useState("");
-  const [img_veh,setImg_veh]=useState("");
+  const [img_veh, setImg_veh] = useState("");
   const [error, setError] = useState("");
+
+  const handleRegiVehi = async () => {
+    if (!mar_veh || !mod_veh || !tip_veh || !anio_veh || !mat_veh || !est_veh) {
+      setError("Por favor, completa todos los campos obligatorios.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("mar_veh", mar_veh);
+    formData.append("mod_veh", mod_veh);
+    formData.append("tip_veh", tip_veh);
+    formData.append("anio_veh", anio_veh);
+    formData.append("mat_veh", mat_veh);
+    formData.append("est_veh", est_veh);
+    formData.append("tip_trans_veh", tip_trans_veh);
+    formData.append("kil_veh", kil_veh);
+    formData.append("num_ocu_veh", num_ocu_veh);
+    formData.append("num_pue_veh", num_pue_veh);
+    if (img_veh) formData.append("img_veh", img_veh);
+
+    try {
+      const response = await axios.post(
+        "http://localhost/Api-DriverGo/Cargar_veh.php",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      alert(response.data.message);
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      setError("Error al guardar el vehículo");
+    }
+  };
+
   return (
     <div className="reg_veh">
       <div className="modal-veh">
@@ -132,16 +165,18 @@ const Registro_veh_adm = ({ closeModal }) => {
               <label>Imagen del vehículo</label>
               <input
                 type="file"
-                placeholder="Ingrese la imagen del vehiculo"
-                value={img_veh}
-                onChange={(e) => setImg_veh(e.target.value)}
+              
+                onChange={(e) => setImg_veh(e.target.files[0])}
               />
             </div>
           </div>
           <div className="button-group">
-          <button className="btn_gua" >Guardar Vehiculo</button>
-            <button className="btn_can" onClick={closeModal}>Cancelar</button>
-           
+            <button className="btn_gua" onClick={handleRegiVehi}>
+              Guardar Vehiculo
+            </button>
+            <button className="btn_can" onClick={closeModal}>
+              Cancelar
+            </button>
           </div>
         </div>
       </div>

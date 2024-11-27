@@ -97,6 +97,7 @@ select {
 }
 
 .button-group {
+  
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -113,12 +114,12 @@ button {
 }
 
 .btn_can {
-  background-color: #f1f1f1;
+  background-image: linear-gradient(to left, #34cdab, #32d874);
   color: white;
 }
 
 .btn_gua {
-  background-color: #000;
+  background-image: linear-gradient(to left, #34cdab, #32d874);
   color: white;
 }
 

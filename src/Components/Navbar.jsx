@@ -52,7 +52,7 @@ const Navbar = () => {
        </Link>
         ))}
              
-          <button className="Button" onClick={handleSessionClick}>
+          <button className="Button-head" onClick={handleSessionClick}>
           <i className="fa-solid fa-user"></i>
           <i>Iniciar Sesión</i>
         </button>

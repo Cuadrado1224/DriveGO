@@ -30,8 +30,10 @@
     font-size: 14px;
   }
   .btn-ag{
-    background-color: #34cdab;
-    color: white;
+    width: 200px;
+  height: 55px;
+  background-image: linear-gradient(to left, #34cdab, #32d874);
+  color: white;
   }
   .btn-ag:hover {
     background-color: #2dbb9a;
