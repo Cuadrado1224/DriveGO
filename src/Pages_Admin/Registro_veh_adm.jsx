@@ -91,6 +91,7 @@ const Registro_veh_adm = ({ closeModal }) => {
                 <option value="">Seleccione tipo</option>
                 <option value="4x4">4x4</option>
                 <option value="familiar">Familiar</option>
+                <option value="economico">Economico</option>
               </select>
             </div>
             <div className="conten-input">
