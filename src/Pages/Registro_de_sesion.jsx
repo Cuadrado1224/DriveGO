@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Registro_de_sesion.css";
 import axios from "axios";
-import { validarEntrada, validarCadena } from '../Controles/Controles';
+import { validarEntrada, validarCadena } from "../Controles/Controles";
 import let_logo from "/Public/drive.png";
 
 const Registro = ({ closeModal }) => {
@@ -16,7 +16,7 @@ const Registro = ({ closeModal }) => {
   const [cont1_usu, setCont1_usu] = useState("");
   const [cont2_usu, setCont2_usu] = useState("");
   const [error, setError] = useState("");
-  
+
   const handleLogin = async () => {
     if (!validarCadena(nom_usu, 3, 15)) {
       setError("El nombre de usuario debe contener entre 3 y 15 caracteres.");
@@ -33,24 +33,25 @@ const Registro = ({ closeModal }) => {
       setError("Las contraseñas deben ser iguales");
       return;
     }
-    try{
-       const response=await axios.post("http://localhost/Api-DriverGo/Crear_Usuario.php",{
-         nom_usu,
-         cont2_usu,
-         cor_usu
-       });
+    try {
+      const response = await axios.post(
+        "http://localhost/Api-DriverGo/Crear_Usuario.php",
+        {
+          nom_usu,
+          cont2_usu,
+          cor_usu,
+        }
+      );
 
-      if(response.data.status===true){
+      if (response.data.status === true) {
         alert("Usuario registrado con exito");
         console.log(response.data.message);
         closeModal();
-      }else{
+      } else {
         alert(response.data.message);
       }
-
-
-    }catch(error){
-      console.error("Error al conectar con el backend",error);
+    } catch (error) {
+      console.error("Error al conectar con el backend", error);
       alert("Hubo un problema al conectar con el servidor");
     }
   };
@@ -64,8 +65,8 @@ const Registro = ({ closeModal }) => {
               &times;
             </span>
             <a href="/" className="let">
-        <img src={let_logo} alt="Logo " />
-      </a>
+              <img src={let_logo} alt="Logo " />
+            </a>
             <h2>Registrarse</h2>
             {error && <p style={{ color: "red" }}>{error}</p>}
             <input
@@ -92,7 +93,9 @@ const Registro = ({ closeModal }) => {
               value={cont2_usu}
               onChange={(e) => setCont2_usu(e.target.value)}
             />
-            <button className="btn_reg_ses"    onClick={handleLogin}>Registrarse</button>
+            <button className="btn_reg_ses" onClick={handleLogin}>
+              Registrarse
+            </button>
           </div>
         </div>
       </div>

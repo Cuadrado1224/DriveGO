@@ -80,13 +80,18 @@ const Alquiler = () => {
         ) : (
           filteredVehiculos.map((vehiculo, index) => (
             <div key={index} className="vehiculo-card">
+              <div className="tit-img">
+                <h3>
+                  {vehiculo.mar_veh} {vehiculo.mod_veh}
+                </h3>
+              </div>
               <div className="imagen-container">
                 <img
                   src={`http://localhost/Api-DriverGo/${vehiculo.img_veh}`}
                   alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                   className="vehiculo-image"
                   style={{
-                    width: "300px",
+                    width: "270px",
                     height: "250px",
                     objectFit: "cover",
                   }}
@@ -96,12 +101,18 @@ const Alquiler = () => {
                 />
               </div>
               <div className="vehiculo-info">
-                <h3>
-                  {vehiculo.mar_veh} {vehiculo.mod_veh}
-                </h3>
-                <p>Tipo: {vehiculo.tip_veh}</p>
+                <p>Año: {vehiculo.anio_veh}</p>
+                <p>Matrícula: {vehiculo.mat_veh}</p>
+
                 <div className="vehiculo-details">
-                  <p>Matrícula: {vehiculo.mat_veh}</p>
+                  <div>
+                    <i className="fa-solid fa-gas-pump"> </i>
+                    <p className="item">: </p>
+                  </div>
+                  <div>
+                    <i className="fa-solid fa-person"> </i>
+                    <p className="item">: {vehiculo.num_ocu_veh}</p>
+                  </div>
                 </div>
                 <div className="buton">
                   <button className="vehiculo-button">MAS INFORMACIÓN</button>

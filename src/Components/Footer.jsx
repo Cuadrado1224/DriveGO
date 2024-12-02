@@ -32,7 +32,7 @@ const Footer = () => {
           Whatsapp
         </a>
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/veru7xd?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
           target="_blank"
           rel="noopener noreferrer"
         >

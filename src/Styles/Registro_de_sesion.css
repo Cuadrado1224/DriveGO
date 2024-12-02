@@ -11,13 +11,13 @@
 }
 .modal-cont {
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   width: 300px;
   text-align: center;
 }
 .modal-cont h2 {
-  padding-top: 50px;
+  padding-top: 10px;
 }
 .close-button-reg {
   float: right;
@@ -29,7 +29,9 @@ input {
   padding: 10px;
   margin: 10px 0;
 }
-
+.let{
+  margin-top: 3cap;
+}
 .btn_reg_ses {
   padding: 10px 20px;
   background-image: linear-gradient(to left, #34cdab, #32d874);

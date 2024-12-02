@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import '../Styles/Categorias.css';
 
@@ -21,21 +20,24 @@ const Categorias = ({ selectedCategories, onCategoryChange }) => {
   };
 
   return (
-    <div className="categorias-container">
-      <h2>CATEGORIAS</h2>
-      <div className="categorias-list">
-        {categorias.map((categoria, index) => (
-          <div key={index} className="categoria-item">
-            <input
-              type="checkbox"
-              checked={categoria.checked}
-              onChange={() => handleCategoryChange(index)}
-            />
-            <span>{categoria.label}</span>
-          </div>
-        ))}
+    <aside className="categorias-sidebar">
+      <div className="categorias-container">
+        <h2>CATEGORIAS</h2>
+        <div className="categorias-list">
+          {categorias.map((categoria, index) => (
+            <div key={index} className="categoria-item">
+              <span>{categoria.label}</span>
+              <input
+                type="checkbox"
+                checked={categoria.checked}
+                onChange={() => handleCategoryChange(index)}
+              />
+              
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </aside>
   );
 };
 
