@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "/Public/Logo.jpg";
+import logo from "/Public/Logo-Drive2-01.png";
 import "../Styles/Navbar.css";
 import { Link} from "react-router-dom";
 import Modal from "../Pages/Login";

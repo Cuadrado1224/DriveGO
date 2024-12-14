@@ -5,7 +5,7 @@ import axios from "axios";
 import Registro from "./Registro_de_sesion";
 import Recuperar from "../Components/Recuperar_cont";
 import CambiarContraseña from "./CambiarContraseña";
-import let_logo from "/Public/drive.png";
+import let_logo from "/Public/DriveGo-02-01.png";
 
 const Login = ({ closeModal }) => {
   const [nombre_usuario, setUsername] = useState("");

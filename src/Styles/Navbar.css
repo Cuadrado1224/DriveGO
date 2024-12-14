@@ -15,14 +15,16 @@
   }
   
   .logo {
-    font-size: 30px;
+    font-size: 40%;
     color: white;
-    font-weight: 700;
+    font-weight: 800;
   }
   
   .logo img {
-    height: 120px;
-    width: auto;
+    margin-top: 10px;
+    height: 70px;
+    width:70px;
+   
   }
   
   .nav-item {
