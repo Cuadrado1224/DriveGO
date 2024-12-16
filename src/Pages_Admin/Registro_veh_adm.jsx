@@ -42,7 +42,7 @@ const Registro_veh_adm = ({ closeModal }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost/Api-DriverGo/Cargar_veh.php",
+        "http://localhost/Api_DriverGo/Cargar_veh.php",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

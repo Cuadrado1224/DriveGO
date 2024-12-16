@@ -13,7 +13,7 @@ const Gestion_vehiculos = () => {
   };
   const handleDeleteClick=(vehi)=>{
   if (window.confirm("¿Estás seguro de que deseas eliminar este vehiculo?")) {
-    fetch("http://localhost/DriveGo/Api-DriverGo/Borrar_vehiculo.php", {
+    fetch("http://localhost/DriveGo/Api_DriverGo/Borrar_vehiculo.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const Gestion_vehiculos = () => {
 };
 
   useEffect(() => {
-    fetch("http://localhost/DriveGo/Api-DriverGo/Ver_vehiculos.php")
+    fetch("http://localhost/DriveGo/Api_DriverGo/Ver_vehiculos.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {

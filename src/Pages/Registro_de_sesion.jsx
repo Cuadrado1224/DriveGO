@@ -49,7 +49,7 @@ const Registro = ({ closeModal }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api-DriverGo/Crear_Usuario.php",
+        "http://localhost/DriveGo/Api_DriverGo/Crear_Usuario.php",
         {
           nom_usu,
           ape_usu,

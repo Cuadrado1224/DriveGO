@@ -29,7 +29,7 @@ const Login = ({ closeModal }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api-DriverGo/login.php",
+        "http://localhost/DriveGo/Api_DriverGo/login.php",
         {
           correo_usuario,
           contrasena,

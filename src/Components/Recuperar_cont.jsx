@@ -9,7 +9,7 @@ const Recuperar_cont = ({ closeModal }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api-DriverGo/Correo_cont.php",
+        "http://localhost/DriveGo/Api_DriverGo/Correo_cont.php",
         { email },
         {
           headers: {

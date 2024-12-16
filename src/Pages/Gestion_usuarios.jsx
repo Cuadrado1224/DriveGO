@@ -21,7 +21,7 @@ const Gestion_usuarios = () => {
   };
 const handleDeleteClick=(user)=>{
   if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-    fetch("http://localhost/DriveGo/Api-DriverGo/Borrar_Usuarios.php", {
+    fetch("http://localhost/DriveGo/Api_DriverGo/Borrar_Usuarios.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const handleDeleteClick=(user)=>{
 
 };
   const handleSaveEdit = () => {
-    fetch("http://localhost/DriveGo/Api-DriverGo/Editar_usuarios.php", {
+    fetch("http://localhost/DriveGo/Api_DriverGo/Editar_usuarios.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editingUser),
@@ -73,7 +73,7 @@ const handleDeleteClick=(user)=>{
   };
 
   useEffect(() => {
-    fetch("http://localhost/DriveGo/Api-DriverGo/Ver_usuarios.php")
+    fetch("http://localhost/DriveGo/Api_DriverGo/Ver_usuarios.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {

@@ -18,7 +18,7 @@ const Alquiler = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://localhost/DriveGo/Api-DriverGo/mostrar_veh.php"
+          "http://localhost/DriveGo/Api_DriverGo/mostrar_veh.php"
         );
         if (response.data.status) {
           setVehiculos(response.data.data);
