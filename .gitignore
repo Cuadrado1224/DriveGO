@@ -15,6 +15,10 @@ dist-ssr
 /vendor/
 /composer.lock
 
+# Composer
+/vendor/
+/composer.lock
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
