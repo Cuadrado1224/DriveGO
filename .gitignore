@@ -13,8 +13,15 @@ dist
 dist-ssr
 *.local
 
+<<<<<<< HEAD
 /vendor/
 /composer.lock
+=======
+# Composer
+/vendor/
+/composer.lock
+
+>>>>>>> ba03ba6e1b68a4139697a78d394b578db636708a
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
