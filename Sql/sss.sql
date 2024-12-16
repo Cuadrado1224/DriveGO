@@ -25,3 +25,6 @@ ALTER TABLE usuarios
 ALTER COLUMN tmp_cont SET DEFAULT 'no';
 
 select id_usu from usuarios where cont_temp='65d864f2';
+ALTER TABLE USUARIOS 
+ADD COLUMN verificado BOOLEAN DEFAULT FALSE, 
+ADD COLUMN codigo_verificacion VARCHAR(255);

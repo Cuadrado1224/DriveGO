@@ -8,7 +8,7 @@ import CambiarContraseña from "./CambiarContraseña";
 import let_logo from "/Public/DriveGo-02-01.png";
 
 const Login = ({ closeModal }) => {
-  const [nombre_usuario, setUsername] = useState("");
+  const [correo_usuario, setCorreo] = useState("");
   const [contrasena, setPassword] = useState("");
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
@@ -29,15 +29,21 @@ const Login = ({ closeModal }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/Api-DriverGo/login.php",
+        "http://localhost/DriveGo/Api-DriverGo/login.php",
         {
-          nombre_usuario,
+          correo_usuario,
           contrasena,
         }
       );
 
       if (response.data.status === true) {
         console.log(response.data);
+        const userData = {
+          nombre: response.data.nombre || "Usuario",
+          rol: response.data.rol,
+          correo: correo_usuario, 
+        };
+        localStorage.setItem("user", JSON.stringify(userData));
         if (response.data.redirect === "si") {
           console.log("si abre");
           toggleChangePasswordModal();
@@ -79,13 +85,13 @@ const Login = ({ closeModal }) => {
           <h2>Iniciar Sesión</h2>
           <input
             type="text"
-            placeholder="Usuario"
-            value={nombre_usuario}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Ingrese su correo"
+            value={correo_usuario}
+            onChange={(e) => setCorreo(e.target.value)}
           />
           <input
             type="password"
-            placeholder="Contraseña"
+            placeholder="Ingrese su contraseña"
             value={contrasena}
             onChange={(e) => setPassword(e.target.value)}
           />

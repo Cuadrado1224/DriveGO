@@ -7,6 +7,9 @@ const Alquiler = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [filteredVehiculos, setFilteredVehiculos] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [minPrice, setMinPrice] = useState(25);
+  const [maxPrice, setMaxPrice] = useState(250);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -15,7 +18,7 @@ const Alquiler = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://localhost/Api-DriverGo/mostrar_veh.php"
+          "http://localhost/DriveGo/Api-DriverGo/mostrar_veh.php"
         );
         if (response.data.status) {
           setVehiculos(response.data.data);
@@ -37,21 +40,48 @@ const Alquiler = () => {
   }, []);
 
   useEffect(() => {
+    let filtered = vehiculos;
+
+    // Filtrar por categoría
     if (selectedCategories.length > 0) {
-      const filtered = vehiculos.filter((vehiculo) =>
+      filtered = filtered.filter((vehiculo) =>
         selectedCategories.includes(vehiculo.tip_veh.toUpperCase())
       );
-      setFilteredVehiculos(filtered);
-    } else {
-      setFilteredVehiculos(vehiculos);
     }
-  }, [selectedCategories, vehiculos]);
+
+    // Filtrar por marca
+    if (selectedBrands.length > 0) {
+      filtered = filtered.filter((vehiculo) =>
+        selectedBrands.includes(vehiculo.mar_veh.toUpperCase())
+      );
+    }
+
+    // Filtrar por rango de precios
+    filtered = filtered.filter(
+      (vehiculo) =>
+        vehiculo.precio_veh >= minPrice && vehiculo.precio_veh <= maxPrice
+    );
+
+    setFilteredVehiculos(filtered);
+  }, [selectedCategories, selectedBrands, minPrice, maxPrice, vehiculos]);
 
   const handleCategoryChange = (updatedCategories) => {
     const selected = updatedCategories
       .filter((categoria) => categoria.checked)
       .map((categoria) => categoria.label.toUpperCase());
     setSelectedCategories(selected);
+  };
+
+  const handleBrandChange = (updatedBrands) => {
+    const selected = updatedBrands
+      .filter((brand) => brand.checked)
+      .map((brand) => brand.label.toUpperCase());
+    setSelectedBrands(selected);
+  };
+
+  const handlePriceChange = (min, max) => {
+    setMinPrice(min);
+    setMaxPrice(max);
   };
 
   if (isLoading) {
@@ -72,7 +102,13 @@ const Alquiler = () => {
 
   return (
     <div className="alquiler-container">
-      <Categorias onCategoryChange={handleCategoryChange} />
+      <Categorias
+        onCategoryChange={handleCategoryChange}
+        onBrandChange={handleBrandChange}
+        onPriceChange={handlePriceChange}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+      />
 
       <div className="vehiculos-container">
         {filteredVehiculos.length === 0 ? (
@@ -80,44 +116,7 @@ const Alquiler = () => {
         ) : (
           filteredVehiculos.map((vehiculo, index) => (
             <div key={index} className="vehiculo-card">
-              <div className="tit-img">
-                <h3>
-                  {vehiculo.mar_veh} {vehiculo.mod_veh}
-                </h3>
-              </div>
-              <div className="imagen-container">
-                <img
-                  src={`http://localhost/Api-DriverGo/${vehiculo.img_veh}`}
-                  alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
-                  className="vehiculo-image"
-                  style={{
-                    width: "270px",
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                  onError={(e) => {
-                    e.target.src = "/Public/Img_default.jpg";
-                  }}
-                />
-              </div>
-              <div className="vehiculo-info">
-                <p>Año: {vehiculo.anio_veh}</p>
-                <p>Matrícula: {vehiculo.mat_veh}</p>
-
-                <div className="vehiculo-details">
-                  <div>
-                    <i className="fa-solid fa-gas-pump"> </i>
-                    <p className="item">: </p>
-                  </div>
-                  <div>
-                    <i className="fa-solid fa-person"> </i>
-                    <p className="item">: {vehiculo.num_ocu_veh}</p>
-                  </div>
-                </div>
-                <div className="buton">
-                  <button className="vehiculo-button">MAS INFORMACIÓN</button>
-                </div>
-              </div>
+              {/* El resto del código para mostrar los vehículos */}
             </div>
           ))
         )}

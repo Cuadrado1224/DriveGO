@@ -7,7 +7,7 @@ import Lugares from "./Pages/Lugares";
 import Alquiler from "./Pages/Alquiler";
 import Contactos from "./Pages/Contactos";
 import Administrador from "./Pages/Administrador";
-
+import VerificarCorreo from "./Pages/VerificarCorreo";
 
 const App = () => {
   return (
@@ -21,6 +21,7 @@ const App = () => {
           <Route path="/alquiler" element={<Alquiler />} />
           <Route path="/contactos" element={<Contactos />} />
           <Route path="/administrador" element={<Administrador />} />
+          <Route path="/verificar" element={<VerificarCorreo />} />
         </Routes>
         <Footer />
       </div>

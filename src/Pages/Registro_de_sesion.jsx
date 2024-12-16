@@ -21,7 +21,7 @@ const Registro = ({ closeModal }) => {
   const tipo_usu='Cliente';
 
   const handleRegistro = async () => {
-    // Validaciones
+
     if (!validarCadena(nom_usu, 3, 15)) {
       setError("El nombre de usuario debe contener entre 3 y 15 caracteres.");
       return;
@@ -49,7 +49,7 @@ const Registro = ({ closeModal }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost/Api-DriverGo/Crear_Usuario.php",
+        "http://localhost/DriveGo/Api-DriverGo/Crear_Usuario.php",
         {
           nom_usu,
           ape_usu,
