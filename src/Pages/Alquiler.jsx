@@ -8,8 +8,6 @@ const Alquiler = () => {
   const [filteredVehiculos, setFilteredVehiculos] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [minPrice, setMinPrice] = useState(25);
-  const [maxPrice, setMaxPrice] = useState(250);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,28 +40,22 @@ const Alquiler = () => {
   useEffect(() => {
     let filtered = vehiculos;
 
-    // Filtrar por categoría
+    // Filtrar por categorías
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((vehiculo) =>
         selectedCategories.includes(vehiculo.tip_veh.toUpperCase())
       );
     }
 
-    // Filtrar por marca
+    // Filtrar por marcas
     if (selectedBrands.length > 0) {
       filtered = filtered.filter((vehiculo) =>
         selectedBrands.includes(vehiculo.mar_veh.toUpperCase())
       );
     }
 
-    // Filtrar por rango de precios
-    filtered = filtered.filter(
-      (vehiculo) =>
-        vehiculo.precio_veh >= minPrice && vehiculo.precio_veh <= maxPrice
-    );
-
     setFilteredVehiculos(filtered);
-  }, [selectedCategories, selectedBrands, minPrice, maxPrice, vehiculos]);
+  }, [selectedCategories, selectedBrands, vehiculos]);
 
   const handleCategoryChange = (updatedCategories) => {
     const selected = updatedCategories
@@ -77,11 +69,6 @@ const Alquiler = () => {
       .filter((brand) => brand.checked)
       .map((brand) => brand.label.toUpperCase());
     setSelectedBrands(selected);
-  };
-
-  const handlePriceChange = (min, max) => {
-    setMinPrice(min);
-    setMaxPrice(max);
   };
 
   if (isLoading) {
@@ -105,9 +92,6 @@ const Alquiler = () => {
       <Categorias
         onCategoryChange={handleCategoryChange}
         onBrandChange={handleBrandChange}
-        onPriceChange={handlePriceChange}
-        minPrice={minPrice}
-        maxPrice={maxPrice}
       />
 
       <div className="vehiculos-container">
@@ -116,7 +100,50 @@ const Alquiler = () => {
         ) : (
           filteredVehiculos.map((vehiculo, index) => (
             <div key={index} className="vehiculo-card">
-              {/* El resto del código para mostrar los vehículos */}
+              <div className="tit-img">
+                <h3>
+                  {vehiculo.mar_veh} {vehiculo.mod_veh}
+                </h3>
+              </div>
+              <div className="imagen-container">
+                <img
+                  src={`http://localhost/Api-DriverGo/${vehiculo.img_veh}`}
+                  alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
+                  className="vehiculo-image"
+                  style={{
+                    width: "300px",
+                    width: "270px",
+                    height: "250px",
+                    objectFit: "cover",
+                  }}
+                  onError={(e) => {
+                    e.target.src = "/Public/Img_default.jpg";
+                    
+                  }}
+                />
+              </div>
+              <div className="vehiculo-info">
+                <h3>
+                 
+                </h3>
+               
+                <p>Año: {vehiculo.anio_veh}</p>
+                <p>Matrícula: {vehiculo.mat_veh}</p>
+                <div className="vehiculo-details">
+                  
+                  <div>
+                    <i className="fa-solid fa-gas-pump"> </i>
+                    <p className="item">: </p>
+                  </div>
+                  <div>
+                    <i className="fa-solid fa-person"> </i>
+                    <p className="item">: {vehiculo.num_ocu_veh}</p>
+                  </div>
+                </div>
+                <div className="buton">
+                  <button className="vehiculo-button">MAS INFORMACIÓN</button>
+                </div>
+              </div>
             </div>
           ))
         )}

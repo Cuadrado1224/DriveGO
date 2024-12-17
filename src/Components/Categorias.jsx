@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../Styles/Categorias.css';
 
-const Categorias = ({ selectedCategories, onCategoryChange, selectedBrands, onBrandChange, minPrice, maxPrice, onPriceChange }) => {
+const Categorias = ({ onCategoryChange, onBrandChange }) => {
   const [categorias, setCategorias] = useState([
     { label: 'ECONOMICO', checked: false },
     { label: '4X4', checked: false },
@@ -36,10 +36,6 @@ const Categorias = ({ selectedCategories, onCategoryChange, selectedBrands, onBr
     onBrandChange(updatedBrands);
   };
 
-  const handlePriceChange = (min, max) => {
-    onPriceChange(min, max);
-  };
-
   return (
     <aside className="categorias-sidebar">
       <div className="categorias-container">
@@ -68,27 +64,6 @@ const Categorias = ({ selectedCategories, onCategoryChange, selectedBrands, onBr
               />
             </div>
           ))}
-        </div>
-        <h2>PRECIO</h2>
-        <div className="precio-slider">
-          <input
-            type="range"
-            min="25"
-            max="250"
-            value={minPrice}
-            onChange={(e) => handlePriceChange(e.target.value, maxPrice)}
-          />
-          <input
-            type="range"
-            min="25"
-            max="250"
-            value={maxPrice}
-            onChange={(e) => handlePriceChange(minPrice, e.target.value)}
-          />
-          <div>
-            <span>Mín: {minPrice}</span>
-            <span>Máx: {maxPrice}</span>
-          </div>
         </div>
       </div>
     </aside>

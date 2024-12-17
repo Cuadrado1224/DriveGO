@@ -18,8 +18,9 @@ ALTER TABLE usuarios ADD COLUMN cont_temp VARCHAR(20), ADD COLUMN tmp_cont VARCH
 SELECT *FROM USUARIOS ;
 
 UPDATE USUARIOS SET CONT_TEMP='152FGHJ',TMP_CONT='si' where id_usu=4;
-ALTER TABLE usuarios
-ALTER COLUMN tmp_cont TYPE VARCHAR(2);
+ALTER TABLE vehiculos
+ADD COLUMN precio_veh NUMERIC(10, 2) DEFAULT 0.00;
+
 
 ALTER TABLE usuarios
 ALTER COLUMN tmp_cont SET DEFAULT 'no';
@@ -28,3 +29,6 @@ select id_usu from usuarios where cont_temp='65d864f2';
 ALTER TABLE USUARIOS 
 ADD COLUMN verificado BOOLEAN DEFAULT FALSE, 
 ADD COLUMN codigo_verificacion VARCHAR(255);
+
+
+UPDATE Vehiculos SET precio_veh=30 where mat_veh='TAA-3456';

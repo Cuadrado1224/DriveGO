@@ -119,6 +119,7 @@ const Registro_veh_adm = ({ closeModal }) => {
                 onChange={(e) => setEst_veh(e.target.value)}
               >
                 <option value="">Seleccione el estado</option>
+                <option value="Disponible">Disponible</option>
                 <option value="Alquilado">Alquilado</option>
                 <option value="Matenimiento">Mantenimiento</option>
                 <option value="Fuera">Fuera de servicio</option>
