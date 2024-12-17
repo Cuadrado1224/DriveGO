@@ -1,11 +1,11 @@
 import React from 'react'
-import logo from "/Public/image.png";
+
 import  "../Styles/Banner.css";
 const Banner = () => {
   return (
     <div className="banner-conten">
     <div className="banner-img">
-      <img src={logo} alt="" />
+      <img src="/image.png" alt="" />
     </div>
     <div className="bannerText">
       <h1>MANEJA EL AUTO DE TUS SUEÑOS</h1>

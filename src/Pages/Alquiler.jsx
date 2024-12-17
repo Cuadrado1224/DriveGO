@@ -107,12 +107,11 @@ const Alquiler = () => {
               </div>
               <div className="imagen-container">
                 <img
-                  src={`http://localhost/Api-DriverGo/${vehiculo.img_veh}`}
+                  src={`http://localhost/DriveGo/Api_DriverGo/${vehiculo.img_veh}`}
                   alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                   className="vehiculo-image"
                   style={{
-                    width: "300px",
-                    width: "270px",
+                                     width: "270px",
                     height: "250px",
                     objectFit: "cover",
                   }}

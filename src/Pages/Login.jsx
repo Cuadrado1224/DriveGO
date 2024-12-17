@@ -5,7 +5,7 @@ import axios from "axios";
 import Registro from "./Registro_de_sesion";
 import Recuperar from "../Components/Recuperar_cont";
 import CambiarContraseña from "./CambiarContraseña";
-import let_logo from "/Public/DriveGo-02-01.png";
+
 
 const Login = ({ closeModal }) => {
   const [correo_usuario, setCorreo] = useState("");
@@ -80,7 +80,7 @@ const Login = ({ closeModal }) => {
             &times;
           </span>
           <a href="/" className="let">
-            <img src={let_logo} alt="Logo" />
+            <img src="/DriveGo-02-01.png" alt="Logo" />
           </a>
           <h2>Iniciar Sesión</h2>
           <input

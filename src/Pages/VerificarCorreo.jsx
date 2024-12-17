@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/VerificarCorreo.css"; 
-import let_logo from "/Public/drive.png"; 
+
 const VerificarCorreo = () => {
   const [correo, setCorreo] = useState("");
   const [token, setToken] = useState("");
@@ -58,7 +58,7 @@ const VerificarCorreo = () => {
       <div className="modal-verif">
         <div className="modal-cont-verif">
           <a href="/" className="let">
-            <img src={let_logo} alt="Logo" />
+            <img src="/drive.png" alt="Logo" />
           </a>
           <h2>Verificar Correo</h2>
           {mensaje && <p style={{ color: mensaje.includes("éxito") ? "green" : "red" }}>{mensaje}</p>}

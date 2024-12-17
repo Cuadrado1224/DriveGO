@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Registro_de_sesion.css";
 import axios from "axios";
 import { validarEntrada, validarCadena } from "../Controles/Controles";
-import let_logo from "/Public/drive.png";
+
 
 const Registro = ({ closeModal }) => {
   useEffect(() => {
@@ -81,7 +81,7 @@ const Registro = ({ closeModal }) => {
             &times;
           </span>
           <a href="/" className="let">
-            <img src={let_logo} alt="Logo" />
+            <img src="drive.png"alt="Logo" />
           </a>
           <h2>Registrarse</h2>
           {error && <p style={{ color: "red" }}>{error}</p>}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "/Public/Logo-Drive2-01.png";
+
 import "../Styles/Navbar.css";
 import { Link } from "react-router-dom";
 import Modal from "../Pages/Login";
@@ -58,7 +58,8 @@ const Navbar = () => {
   return (
     <header className="header-nav">
       <a href="/" className="logo">
-        <img src={logo} alt="Logo de la empresa" />
+      <img src="/Logo-Drive2-01.png" alt="Logo" />
+
       </a>
       <nav className="navbar">
         {(user?.rol === "Administrador" ? linksAdmin : linksCliente).map((x) => (

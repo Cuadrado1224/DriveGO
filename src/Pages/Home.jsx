@@ -1,7 +1,7 @@
 import React from 'react';
 import  "../Styles/Home.css";
 import Banner from "../Components/Banner";
-import imagen from "/Public/Logo.jpg";
+
 const Home = () => {
   return (
     
@@ -10,7 +10,7 @@ const Home = () => {
     <section className="section">
     <div className="oferta-1">
       <div className="oferta-img">
-        <img src={imagen} alt="" />
+        <img src="/Logo.jpg" alt="" />
       </div>
       <div className="oferta-txt">
         <h3>producto 1</h3>
@@ -23,7 +23,7 @@ const Home = () => {
     </div>
     <div className="oferta-2">
       <div className="oferta-img">
-        <img src={imagen} alt="" />
+        <img src="/Logo.jpg" alt="" />
       </div>
       <div className="oferta-txt">
         <h3>producto 1</h3>
@@ -35,7 +35,7 @@ const Home = () => {
       </div>
       <div className="oferta-3">
         <div className="oferta-img">
-          <img src={imagen} alt="" />
+          <img src="/Logo.jpg" alt="" />
         </div>
         <div className="oferta-txt">
           <h3>producto 1</h3>
