@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../Styles/Tarifas.css";
-import AsigTarifa from "../Pages_Admin/Asig_tarifa"; // Importamos el componente del modal
+import "../Styles/Tarifas.css"
+import AsigTarifa from "../Pages_Admin/Asig_tarifa"; 
 
 const Tarifas = () => {
   const [showModal, setShowModal] = useState(false);
