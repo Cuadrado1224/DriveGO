@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5173"); 
+header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
@@ -10,35 +10,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 include 'bd.php';
 
-// Verificar si se recibió una solicitud POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos enviados
-    $data = json_decode(file_get_contents("php://input"));
+$input = json_decode(file_get_contents('php://input'), true); 
+if (isset($input['mat_veh']) && isset($input['precio_veh'])) {
+    $idVehiculo = $input['mat_veh'];
+    $nuevaTarifa = $input['precio_veh'];
 
-    $id_veh = $data->id_veh;   // ID del vehículo
-    $nueva_tarifa = $data->tarifa_veh;  // Nueva tarifa
+    $query = "UPDATE vehiculos SET precio_veh = :tarifa_veh WHERE mat_veh = :id_veh";
 
-    if (empty($id_veh) || empty($nueva_tarifa)) {
-        echo json_encode(["status" => false, "message" => "Faltan datos"]);
-        exit();
-    }
+    $stmt = $conn->prepare($query);
 
-    // Actualizar la tarifa en la base de datos
     try {
-        $stmt = $pdo->prepare("UPDATE vehiculos SET precio_veh = :tarifa_veh WHERE id_veh = :id_veh");
-        $stmt->bindParam(':tarifa_veh', $nuevaTarifa);
-        $stmt->bindParam(':id_veh', $idVehiculo);
+        $stmt->execute([
+            ':id_veh' => $idVehiculo,
+            ':tarifa_veh' => $nuevaTarifa
+        ]);
 
-        $stmt->execute();
-
-        // Verificar si la actualización fue exitosa
         if ($stmt->rowCount() > 0) {
-            echo json_encode(["status" => true, "message" => "Tarifa actualizada con éxito"]);
+            $response = array(
+                "status" => true,
+                "message" => "Tarifa actualizada con éxito"
+            );
         } else {
-            echo json_encode(["status" => false, "message" => "No se encontró el vehículo o no hubo cambios"]);
+            $response = array(
+                "status" => false,
+                "message" => "No se encontró el vehículo o no hubo cambios"
+            );
         }
     } catch (PDOException $e) {
-        echo json_encode(["status" => false, "message" => "Error al actualizar la tarifa: " . $e->getMessage()]);
+        $response = array(
+            "status" => false,
+            "message" => "Error al actualizar la tarifa: " . $e->getMessage()
+        );
     }
+} else {
+    $response = array(
+        "status" => false,
+        "message" => "Datos incompletos"
+    );
 }
+
+$conn = null; 
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>

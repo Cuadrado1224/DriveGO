@@ -19,6 +19,8 @@ const Registro_veh_adm = ({ closeModal }) => {
   const [kil_veh, setKil_veh] = useState("");
   const [num_ocu_veh, setNum_ocu_veh] = useState("");
   const [num_pue_veh, setNum_pue_veh] = useState("");
+  const [chasis, setChasis] = useState("");
+  const [comb_veh, setComb_Veh] = useState("");
   const [img_veh, setImg_veh] = useState("");
   const [error, setError] = useState("");
 
@@ -38,6 +40,8 @@ const Registro_veh_adm = ({ closeModal }) => {
     formData.append("kil_veh", kil_veh);
     formData.append("num_ocu_veh", num_ocu_veh);
     formData.append("num_pue_veh", num_pue_veh);
+    formData.append("comb_veh",comb_veh);
+    formData.append("chasis",chasis);
     if (img_veh) formData.append("img_veh", img_veh);
 
     try {
@@ -161,6 +165,27 @@ const Registro_veh_adm = ({ closeModal }) => {
                 placeholder="Numero de puertas del vehiculos"
                 value={num_pue_veh}
                 onChange={(e) => setNum_pue_veh(e.target.value)}
+              />
+            </div>
+            <div className="conten-input">
+              <label>Tipo de combustible</label>
+              <select
+                value={comb_veh}
+                onChange={(e) => setComb_Veh(e.target.value)}
+              >
+                <option value="">Seleccione tipo</option>
+                <option value="Gasolina">Gasolina</option>
+                <option value="Diesel">Diesel</option>
+              
+              </select>
+            </div>
+            <div className="conten-input">
+              <label>Chasis</label>
+              <input
+                type="text"
+                placeholder="Chasis del vehiculo"
+                value={chasis}
+                onChange={(e) => setChasis(e.target.value)}
               />
             </div>
             <div className="conten-input">

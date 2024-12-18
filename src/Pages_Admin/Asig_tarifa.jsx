@@ -11,6 +11,7 @@ const AsigTarifa = ({ vehicle, onSave, onCancel }) => {
   const saveRate = () => {
     const updatedVehicle = { ...vehicle, precio_veh: tarifa };
     onSave(updatedVehicle);
+    
   };
 
   return (

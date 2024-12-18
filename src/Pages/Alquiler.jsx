@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../Styles/Alquiler.css";
 import Categorias from "../Components/Categorias";
+import ModalVehiculo from "./Info_veh";
 
 const Alquiler = () => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -10,6 +11,7 @@ const Alquiler = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedVehiculo, setSelectedVehiculo] = useState(null);
 
   useEffect(() => {
     const fetchVehiculos = async () => {
@@ -40,14 +42,12 @@ const Alquiler = () => {
   useEffect(() => {
     let filtered = vehiculos;
 
-    // Filtrar por categorías
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((vehiculo) =>
         selectedCategories.includes(vehiculo.tip_veh.toUpperCase())
       );
     }
 
-    // Filtrar por marcas
     if (selectedBrands.length > 0) {
       filtered = filtered.filter((vehiculo) =>
         selectedBrands.includes(vehiculo.mar_veh.toUpperCase())
@@ -70,7 +70,8 @@ const Alquiler = () => {
       .map((brand) => brand.label.toUpperCase());
     setSelectedBrands(selected);
   };
-
+  const openModal = (vehiculo) => setSelectedVehiculo(vehiculo);
+  const closeModal = () => setSelectedVehiculo(null);
   if (isLoading) {
     return (
       <div className="loading-container">
@@ -111,42 +112,46 @@ const Alquiler = () => {
                   alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                   className="vehiculo-image"
                   style={{
-                                     width: "270px",
+                    width: "270px",
                     height: "250px",
                     objectFit: "cover",
                   }}
                   onError={(e) => {
                     e.target.src = "/Public/Img_default.jpg";
-                    
                   }}
                 />
               </div>
               <div className="vehiculo-info">
-                <h3>
-                 
-                </h3>
-               
-                <p>Año: {vehiculo.anio_veh}</p>
-                <p>Matrícula: {vehiculo.mat_veh}</p>
                 <div className="vehiculo-details">
-                  
-                  <div>
-                    <i className="fa-solid fa-gas-pump"> </i>
-                    <p className="item">: </p>
+                  <div className="vehiculo-item">
+                    <i className="fa-solid fa-car"></i>
+                    <p className="item">: {vehiculo.tip_trans_veh}</p>
                   </div>
-                  <div>
-                    <i className="fa-solid fa-person"> </i>
-                    <p className="item">: {vehiculo.num_ocu_veh}</p>
+                  <div className="vehiculo-item">
+                    <i className="fa-solid fa-gas-pump"></i>
+                    <p className="item">: {vehiculo.combustible}</p>
+                  </div>
+                  <div className="vehiculo-item">
+                    <i className="fa-solid fa-person"></i>
+                    <p className="item">: {vehiculo.num_ocu_veh} personas</p>
                   </div>
                 </div>
                 <div className="buton">
-                  <button className="vehiculo-button">MAS INFORMACIÓN</button>
+                <button
+                    className="vehiculo-button"
+                    onClick={() => openModal(vehiculo)}
+                  >
+                    MÁS INFORMACIÓN
+                  </button>
                 </div>
               </div>
             </div>
           ))
         )}
       </div>
+      {selectedVehiculo && (
+        <ModalVehiculo vehiculo={selectedVehiculo} onClose={closeModal} />
+      )}
     </div>
   );
 };

@@ -42,15 +42,19 @@ const Tarifas = () => {
 
  
   const handleSave = async (updatedVehicle) => {
+    const vehicleData = {
+      mat_veh: updatedVehicle.mat_veh, 
+      precio_veh: updatedVehicle.precio_veh, 
+    };
     try {
       const response = await fetch(
-        "http://localhost/DriveGo/Api_DriverGo/Editar_vehiculo.php",
+        "http://localhost/DriveGo/Api_DriverGo/actualizar_tarifa.php",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedVehicle), 
+          body: JSON.stringify(vehicleData), 
         }
       );
 
@@ -65,6 +69,7 @@ const Tarifas = () => {
         );
         setShowModal(false);
         setSelectedVehicle(null);
+        alert(data.message)
       } else {
         console.error("Error al actualizar:", data.message);
         alert(data.message);

@@ -41,15 +41,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $kilometros = $_POST['kil_veh'];
   $ocupantes = $_POST['num_ocu_veh'];
   $puertas = $_POST['num_pue_veh'];
+  $chasis = $_POST['chasis'];
+  $combustible=$_POST['comb_veh'];
 
   $query = '
         INSERT INTO VEHICULOS(
             MAT_VEH, MAR_VEH, MOD_VEH, TIP_VEH, ANIO_VEH,
-            EST_VEH, TIP_TRANS_VEH, KIL_VEH, NUM_OCU_VEH, NUM_PUE_VEH, IMG_VEH
+            EST_VEH, TIP_TRANS_VEH, KIL_VEH, NUM_OCU_VEH, NUM_PUE_VEH, IMG_VEH,CHASIS,COMBUSTIBLE
         )
         VALUES (
             :matricula, :marca, :modelo, :tipo, :anio,
-            :estado, :transmision, :kilometros, :ocupantes, :puertas, :img
+            :estado, :transmision, :kilometros, :ocupantes, :puertas, :img,:chasis,:combustible
         )
     ';
 
@@ -67,7 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ':kilometros' => $kilometros,
       ':ocupantes' => $ocupantes,
       ':puertas' => $puertas,
-      ':img' => $uploadedFile
+      ':img' => $uploadedFile,
+      'chasis'=>$chasis,
+      'combustible'=>$combustible
     ]);
 
     if ($stmt->rowCount() > 0) {
