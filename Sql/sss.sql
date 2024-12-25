@@ -32,3 +32,12 @@ ADD COLUMN codigo_verificacion VARCHAR(255);
 
 
 UPDATE Vehiculos SET precio_veh=30 where mat_veh='TAA-3456';
+
+ALTER TABLE vehiculos
+ADD COLUMN chasis VARCHAR(20) ;
+
+ALTER TABLE vehiculos
+ADD COLUMN combustible VARCHAR(20) ;
+
+delete from usuarios;
+

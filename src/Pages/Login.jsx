@@ -44,15 +44,21 @@ const Login = ({ closeModal }) => {
           correo: correo_usuario, 
         };
         localStorage.setItem("user", JSON.stringify(userData));
+      
         if (response.data.redirect === "si") {
           console.log("si abre");
           toggleChangePasswordModal();
         } else if (response.data.rol === "Cliente") {
+            window.location.reload();
           closeModal();
         } else if (response.data.rol === "Administrador") {
           console.log("Inicio de sesión como Administrador");
           closeModal();
           navigate("/administrador");
+        }else if (response.data.rol === "Usuario") {
+          console.log("Inicio de sesión como Administrador");
+          closeModal();
+          navigate("/reserva");
         }
       } else {
         alert(response.data.message);

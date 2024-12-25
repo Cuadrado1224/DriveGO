@@ -22,10 +22,6 @@ const Registro = ({ closeModal }) => {
 
   const handleRegistro = async () => {
 
-    if (!validarCadena(nom_usu, 3, 15)) {
-      setError("El nombre de usuario debe contener entre 3 y 15 caracteres.");
-      return;
-    }
     if (!validarEntrada(nom_usu)) {
       setError("El nombre de usuario debe contener solo letras y números.");
       return;

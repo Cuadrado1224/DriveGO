@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/Info_veh.css";
+import ModalLogin from "./Login";
+import ModalReserva from "./Reserva_mod";
 
 const Info_veh = ({ vehiculo, onClose }) => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showReservaModal, setShowReservaModal] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUserInfo(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleReservar = () => {
+    if (!userInfo) {
+      setShowLoginModal(true);
+    } else {
+      setShowReservaModal(true);
+    }
+  };
+
+  const closeLoginModal = () => setShowLoginModal(false);
+  const closeReservaModal = () => setShowReservaModal(false);
+
   if (!vehiculo) return null;
 
   return (
@@ -28,12 +52,23 @@ const Info_veh = ({ vehiculo, onClose }) => {
           </p>
         </div>
         <div className="modal-buttons">
-          <button className="alquilar-button">ALQUILAR</button>
+          <button className="alquilar-button" onClick={handleReservar}>
+            RESERVAR
+          </button>
           <button className="close-button" onClick={onClose}>
             CERRAR
           </button>
         </div>
       </div>
+
+      {showLoginModal && <ModalLogin closeModal={closeLoginModal} />}
+      {showReservaModal && (
+        <ModalReserva
+          vehiculo={vehiculo}
+          userInfo={userInfo}
+          onClose={closeReservaModal}
+        />
+      )}
     </div>
   );
 };
