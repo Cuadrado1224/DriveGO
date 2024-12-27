@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $uploadDir = './IMAGEN/';
   $uploadedFile = null;
 
-  // Manejo de la imagen subida
   if (!empty($_FILES['img_veh']['name'])) {
     $fileName = time() . '_' . basename($_FILES['img_veh']['name']);
     $uploadFilePath = $uploadDir . $fileName;
@@ -31,10 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit;
     }
   } else {
-    $uploadedFile = 'default.png'; // Imagen por defecto si no se sube ninguna
+    $uploadedFile = 'default.png'; 
   }
 
-  // Verifica si se recibe la matrícula correctamente
   if (isset($_POST['mat_veh']) && !empty($_POST['mat_veh'])) {
     $matricula = $_POST['mat_veh'];
   } else {
@@ -58,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $chasis = $_POST['chasis'];
   $combustible = $_POST['comb_veh'];
 
-  // Consulta SQL para actualizar usando la matrícula como identificador
   $query = '
     UPDATE VEHICULOS SET
         MAR_VEH = :marca,
@@ -79,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt = $conn->prepare($query);
 
   try {
-    // Ejecutar la actualización
     $stmt->execute([
       ':matricula' => $matricula,
       ':marca' => $marca,
@@ -96,7 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ':combustible' => $combustible
     ]);
 
-    // Verificar si la actualización fue exitosa
     if ($stmt->rowCount() > 0) {
       $response = array(
         "status" => true,
@@ -109,14 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       );
     }
   } catch (PDOException $e) {
-    // En caso de error en la consulta
     $response = array(
       "status" => false,
       "message" => "Error al actualizar el vehículo: " . $e->getMessage()
     );
   }
 } else {
-  // En caso de que no sea una solicitud POST
   $response = array(
     "status" => false,
     "message" => "Método no permitido"

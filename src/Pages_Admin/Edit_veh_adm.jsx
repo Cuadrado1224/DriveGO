@@ -33,7 +33,6 @@ const Editar_veh_adm = ({ closeModal, vehiculoId }) => {
         if (data.error) {
           setError(data.error);
         } else {
-          // Asignación de los datos a las variables de estado
           setMar_veh(data.MAR_VEH || "");
           setMod_veh(data.MOD_VEH || "No se pudo cargar");
           setTip_veh(data.TIP_VEH || "");
@@ -69,7 +68,7 @@ const Editar_veh_adm = ({ closeModal, vehiculoId }) => {
       }
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImg_veh(reader.result); // Convierte la imagen a Base64
+        setImg_veh(reader.result); 
       };
       reader.readAsDataURL(file);
     }
