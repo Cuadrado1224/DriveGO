@@ -1,5 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5173");
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
@@ -8,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-include 'bd.php';
+
+include 'config.php';
 
 $input = json_decode(file_get_contents('php://input'), true); 
 if (isset($input['mat_veh']) && isset($input['precio_veh'])) {

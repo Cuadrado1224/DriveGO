@@ -1,7 +1,7 @@
 <?php
-
+include 'config.php';
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:5173');
+header("Access-Control-Allow-Origin: " . FRONT_URL);
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -15,7 +15,6 @@ global $pdo;
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         if (isset($_GET['cedula'])) {
-            // Consultar reservas por cédula
             $cedula = $_GET['cedula'];
             $stmt = $pdo->prepare(
                 "SELECT r.ID_RES, r.CED_USU_RES, r.NOM_USU_RES, r.MATRICULA_VEH, r.FEC_RES, r.FEC_DEV, r.EST_VEH_DEV, r.TAR_ADI, r.DES_DEV, 
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["success" => true, "data" => $reservas]);
             exit;
         } else {
-            // Consultar todas las reservas
             $stmt = $pdo->prepare(
                 "SELECT r.ID_RES, r.CED_USU_RES, r.NOM_USU_RES, r.MATRICULA_VEH, r.FEC_RES, r.FEC_DEV, r.EST_VEH_DEV, r.TAR_ADI, r.DES_DEV, 
                         v.MOD_VEH, v.MARCA_VEH, v.TIP_VEH
