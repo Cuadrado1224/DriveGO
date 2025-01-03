@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal_Ges from "../Pages_Admin/Registro_adm";
 import EditUserModal from "../Pages_Admin/Edit_usu_adm";
 import "../Styles/Gestion_Usuario.css";
+import { BACK_URL } from "../config.js";
 
 const Gestion_usuarios = () => {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +22,7 @@ const Gestion_usuarios = () => {
   };
 const handleDeleteClick=(user)=>{
   if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-    fetch("http://localhost/DriveGo/Api_DriverGo/Borrar_Usuarios.php", {
+    fetch(BACK_URL+"/Api_DriverGo/Borrar_Usuarios.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const handleDeleteClick=(user)=>{
 
 };
   const handleSaveEdit = () => {
-    fetch("http://localhost/DriveGo/Api_DriverGo/Editar_usuarios.php", {
+    fetch(BACK_URL+"/Api_DriverGo/Editar_usuarios.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editingUser),
@@ -73,7 +74,7 @@ const handleDeleteClick=(user)=>{
   };
 
   useEffect(() => {
-    fetch("http://localhost/DriveGo/Api_DriverGo/Ver_usuarios.php")
+    fetch(BACK_URL+"/Api_DriverGo/Ver_usuarios.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {

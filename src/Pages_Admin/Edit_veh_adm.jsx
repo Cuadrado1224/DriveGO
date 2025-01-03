@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/Registro_veh_adm.css";
 import axios from "axios";
+import { BACK_URL } from "../config.js";
 
 const Editar_veh_adm = ({ closeModal, vehiculoId }) => {
   const [mar_veh, setMar_veh] = useState("");
@@ -27,7 +28,7 @@ const Editar_veh_adm = ({ closeModal, vehiculoId }) => {
     const fetchVehicleData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost/ProyectoMDS/DGv2.0/DriveGo/Api_DriverGo/Editar_veh.php?id=${vehiculoId}`
+          `${BACK_URL}/Api_DriverGo/Editar_veh.php?id=${vehiculoId}`
         );
         const data = response.data;
         if (data.error) {
@@ -106,7 +107,7 @@ const Editar_veh_adm = ({ closeModal, vehiculoId }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost/ProyectoMDS/DGv2.0/DriveGo/Api_DriverGo/Editar_veh.php",
+        BACK_URL+"/Api_DriverGo/Editar_veh.php",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

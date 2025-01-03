@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Reserva.css";
+import { BACK_URL } from "../config.js";
 
 const Devolucion = () => {
   const [reservas, setReservas] = useState([]);
   const [idReserva, setIdReserva] = useState("");
   const [estadoVehiculo, setEstadoVehiculo] = useState("");
   const [descripcionDevolucion, setDescripcionDevolucion] = useState("");
-  const [tarifaAdicional, setTarifaAdicional] = useState(0); // Valor predeterminado es 0
-  const [tarifaAdicionalVisible, setTarifaAdicionalVisible] = useState(false); // Controla si el campo es visible
+  const [tarifaAdicional, setTarifaAdicional] = useState(0); 
+  const [tarifaAdicionalVisible, setTarifaAdicionalVisible] = useState(false); 
 
-  // Obtener las reservas al cargar el componente
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const response = await fetch("http://localhost/DriveGo/Api_DriverGo/getReservas.php");
+        const response = await fetch(BACK_URL+"/Api_DriverGo/getReservas.php");
         const data = await response.json();
         if (data.success) {
           setReservas(data.data);
@@ -40,11 +40,11 @@ const Devolucion = () => {
       idReserva,
       estadoVehiculo,
       descripcionDevolucion,
-      tarifaAdicional: tarifaAdicionalVisible ? tarifaAdicional : 0, // Si no está visible, se envía 0
+      tarifaAdicional: tarifaAdicionalVisible ? tarifaAdicional : 0, 
     };
   
     try {
-      const response = await fetch("http://localhost/DriveGo/Api_DriverGo/devolucion.php", {
+      const response = await fetch(BACK_URL+"/Api_DriverGo/devolucion.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,6 @@ const Devolucion = () => {
         body: JSON.stringify(data),
       });
   
-      // Verificar si la respuesta es válida
       if (!response.ok) {
         throw new Error("Error en la respuesta del servidor");
       }
@@ -62,10 +61,9 @@ const Devolucion = () => {
       if (result.success) {
         alert(result.success || "Devolución registrada exitosamente.");
   
-        // Recargar las reservas después de una devolución exitosa
         const fetchReservas = async () => {
           try {
-            const response = await fetch("http://localhost/DriveGo/Api_DriverGo/getReservas.php");
+            const response = await fetch(BACK_URL+"/Api_DriverGo/getReservas.php");
             const data = await response.json();
             if (data.success) {
               setReservas(data.data);
@@ -79,7 +77,6 @@ const Devolucion = () => {
   
         fetchReservas();
   
-        // Restablecer los campos del formulario
         setIdReserva("");
         setEstadoVehiculo("");
         setDescripcionDevolucion("");

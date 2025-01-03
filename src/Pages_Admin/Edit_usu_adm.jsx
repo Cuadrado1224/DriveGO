@@ -1,5 +1,6 @@
 import React from "react";
 import "..//Styles/Edit_usu_adm.css";
+
 const Edit_usu_adm = ({ user, onSave, onCancel, setUser }) => {
   if (!user) return null;
   return (

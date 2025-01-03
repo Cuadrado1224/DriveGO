@@ -3,6 +3,7 @@ import axios from "axios";
 import "../Styles/Alquiler.css";
 import Categorias from "../Components/Categorias";
 import ModalVehiculo from "./Info_veh";
+import {BACK_URL} from "../config.js";
 
 const Alquiler = () => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -18,7 +19,7 @@ const Alquiler = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://localhost/DriveGo/Api_DriverGo/mostrar_veh.php"
+          BACK_URL+"/Api_DriverGo/mostrar_veh.php"
         );
         if (response.data.status) {
           setVehiculos(response.data.data);

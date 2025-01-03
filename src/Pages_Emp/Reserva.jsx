@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "../Styles/Reserva.css";
+import {BACK_URL} from "../config.js";
 
 registerLocale("es", es);
 
@@ -11,17 +12,16 @@ const Reserva = () => {
   const [cedulaUsuario, setCedulaUsuario] = useState("");
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [matriculaVehiculo, setMatriculaVehiculo] = useState("");
-  const [vehiculos, setVehiculos] = useState([]); // Lista de vehículos
+  const [vehiculos, setVehiculos] = useState([]); 
   const [fechaReserva, setFechaReserva] = useState("");
   const [fechaDevolucion, setFechaDevolucion] = useState("");
 
   const manejoFecha = new Date();
 
-  // Cargar los vehículos desde el backend
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
-        const response = await fetch("http://localhost/DriveGo/Api_DriverGo/mostrar_veh.php");
+        const response = await fetch(BACK_URL+"/Api_DriverGo/mostrar_veh.php");
         const data = await response.json();
         if (data.status) {
           setVehiculos(data.data); 
@@ -63,7 +63,7 @@ const Reserva = () => {
     };
   
     try {
-      const response = await fetch("http://localhost/DriveGo/Api_DriverGo/reserva.php", {
+      const response = await fetch(BACK_URL+"/Api_DriverGo/reserva.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,11 +71,10 @@ const Reserva = () => {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json(); // Asegurarse de que la respuesta es un JSON
+      const result = await response.json(); 
   
-      // Verificar si el servidor respondió con un error
       if (result.error) {
-        alert("Error al realizar la reserva: " + result.error); // Mostrar el mensaje de error
+        alert("Error al realizar la reserva: " + result.error);
       } else {
         alert("Reserva exitosa");
         console.log(result);

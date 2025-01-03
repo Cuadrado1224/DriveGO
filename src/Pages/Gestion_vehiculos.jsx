@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../Styles/Gestion_vehiculos.css";
 import ModalGes from "../Pages_Admin/Registro_veh_adm";
 import ModalEdi from "../Pages_Admin/Edit_veh_adm";
+import { BACK_URL } from "../config.js";
 
 const GestionVehiculos = () => {
   const [veh, setVeh] = useState([]);
@@ -32,7 +33,7 @@ const GestionVehiculos = () => {
 
   const handleDeleteClick = (vehi) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este vehículo?")) {
-      fetch("http://localhost/ProyectoMDS/DGv2.0/DriveGo/Api_DriverGo/Borrar_vehiculo.php", {
+      fetch(BACK_URL+"/Api_DriverGo/Borrar_vehiculo.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

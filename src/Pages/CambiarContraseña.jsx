@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../Styles/CambiarContrasena.css";
+import {BACK_URL} from "../config.js";
 
 const CambiarContraseña = ({ closeModal }) => {
   const [cont, setCont] = useState("");
@@ -10,7 +11,7 @@ const CambiarContraseña = ({ closeModal }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/Recuperar_contr.php",
+        BACK_URL+"/Api_DriverGo/Recuperar_contr.php",
         {
           cont_temp,
           cont,

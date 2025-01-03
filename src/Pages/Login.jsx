@@ -5,6 +5,7 @@ import axios from "axios";
 import Registro from "./Registro_de_sesion";
 import Recuperar from "../Components/Recuperar_cont";
 import CambiarContraseña from "./CambiarContraseña";
+import {BACK_URL} from "../config.js";
 
 
 const Login = ({ closeModal }) => {
@@ -29,7 +30,7 @@ const Login = ({ closeModal }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/login.php",
+        BACK_URL+"/Api_DriverGo/login.php",
         {
           correo_usuario,
           contrasena,
