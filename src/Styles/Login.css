@@ -45,7 +45,7 @@ input {
   display: block;
 margin-top: 10px;
 font-size: 12px;
-color: #555;
+color: #050a30;
 cursor: pointer;
 text-align: left;
 }
@@ -64,10 +64,10 @@ display: inline-block;
 .btn-in{
   margin-top: 10px;
   margin-bottom: 10px;
-  color: white;
+  color: #5cb6f9; 
   width: 100%;
   padding: 10px;
-  background-image: linear-gradient(to left, #34cdab, #32d874);
+  background-image: linear-gradient(to left, #050a30, #050a30);
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -84,12 +84,18 @@ button i {
 }
 .reg{
   font-size: 12px;
-color: #555;
+color: #050a30;
 cursor: pointer;
 margin-top: 10px;
 text-align: center;
 }
 .reg-link{
-  color: #34cdab;
+  color: #5cb6f9;
 text-decoration: underline;
+}
+
+.let img{
+  float:left;
+  height: auto;
+  width: auto;
 }

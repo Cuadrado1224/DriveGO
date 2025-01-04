@@ -1,0 +1,75 @@
+  .lugares-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  .lugaresCard{
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow:  0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+  }
+  .lugaresCard img{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  .lugaresCard h3{
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .lugaresCard p{
+    font-size: 0.9rem;
+    color: #555;
+    margin: 5px 0;
+  }
+  .lugaresCard button{
+    background-color: #050a30;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  .lugaresCard button:hover{
+    background-color: #5cb6f9;
+  }
+  .lugaresCard:hover{
+    transform: translateY(-5px);
+  }
+  /* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+  }
+
+  .card button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .card img {
+    margin-bottom: 10px;
+  }
+}

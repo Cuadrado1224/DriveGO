@@ -2,7 +2,7 @@
   height: 120px;
   width: 100%;
   padding: 5px 5%;
-  background: #011950;
+  background: #050a30;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,8 +20,8 @@
 
 .nav-admin button {
   font-size: 20px;
-  color: white;
-  background: none;
+  color: black;
+  background-image: linear-gradient(to left, #5cb6f9, #f4f6fc);;
   border: none;
   cursor: pointer;
   margin-right: 30px; 
@@ -40,7 +40,7 @@
 .menu-admin {
   margin-top: 122px;
   width: 160px;
-  background-color: #011950;
+  background-color: #cae8ff;
   height: 100vh;
   position: fixed; 
   left: 0;
@@ -78,7 +78,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: #050a30;
   background: none;
   border: none;
   cursor: pointer;
@@ -109,7 +109,7 @@
 }
 
 .menu-cont ul li button:hover {
-  background-image: linear-gradient(to left, #34cdab, #32d874);
+  background-image: linear-gradient(to left, #050a30, #5cb6f9);
   color: white;
   border-radius: 5px;
   padding: 6px 6px;
@@ -151,3 +151,5 @@
     margin-right: 5px;
   }
 }
+
+

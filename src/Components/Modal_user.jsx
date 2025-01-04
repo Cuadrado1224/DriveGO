@@ -11,7 +11,7 @@ const ModalUser = ({ closeModal, onLogout, onHistory, onChangePassword }) => {
         <h3>Opciones de Usuario</h3>
         <ul className="modal-options">
           <li>
-            <button onClick={onHistory}>Historial</button>
+            <button onClick={onHistory}>Historial de reserva</button>
           </li>
           <li>
             <button onClick={onChangePassword}>Cambiar Contraseña</button>

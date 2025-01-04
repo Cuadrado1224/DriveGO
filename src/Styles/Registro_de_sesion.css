@@ -9,44 +9,37 @@
   justify-content: center;
   align-items: center;
 }
-
 .modal-cont {
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  width: 350px;
+  width: 300px;
   text-align: center;
 }
-
 .modal-cont h2 {
-  padding: 10px 0;
+  padding-top: 10px;
 }
-
 .close-button-reg {
   float: right;
   font-size: 20px;
   cursor: pointer;
 }
-
 input {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
 }
-
-.let img {
-  width: 80px;
+.let{
+  margin-top: 3cap;
 }
-
 .btn_reg_ses {
   padding: 10px 20px;
-  background-image: linear-gradient(to left, #34cdab, #32d874);
-  color: white;
+  background-image: linear-gradient(to left, #34cdab, #5cb6f9);
+  color: #050a30;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-
 button i {
   margin-right: 8px;
 }

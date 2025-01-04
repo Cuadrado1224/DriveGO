@@ -59,7 +59,7 @@ const Login = ({ closeModal }) => {
         }else if (response.data.rol === "Usuario") {
           console.log("Inicio de sesión como Administrador");
           closeModal();
-          navigate("/reserva");
+          navigate("/empleado");
         }
       } else {
         alert(response.data.message);
@@ -87,7 +87,7 @@ const Login = ({ closeModal }) => {
             &times;
           </span>
           <a href="/" className="let">
-            <img src="/DriveGo-02-01.png" alt="Logo" />
+            <img src="/Logo-sin_fodo.png" alt="Logo" />
           </a>
           <h2>Iniciar Sesión</h2>
           <input

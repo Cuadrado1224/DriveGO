@@ -58,7 +58,7 @@ const GestionVehiculos = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost/ProyectoMDS/DGv2.0/DriveGo/Api_DriverGo/Ver_vehiculos.php")
+    fetch(BACK_URL+"/Api_DriverGo/Ver_vehiculos.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {

@@ -32,11 +32,11 @@
   .btn-ag{
     width: 200px;
   height: 55px;
-  background-image: linear-gradient(to left, #34cdab, #32d874);
+  background-image: linear-gradient(to left,#5cb6f9, #050a30);
   color: white;
   }
   .btn-ag:hover {
-    background-color: #2dbb9a;
+    background-color:#050a30;
   }
   .car-cont{
     overflow-x: auto;

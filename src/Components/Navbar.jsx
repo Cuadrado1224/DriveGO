@@ -59,7 +59,7 @@ const Navbar = () => {
   return (
     <header className="header-nav">
       <a href="/" className="logo">
-        <img src="/Logo-Drive2-01.png" alt="Logo" />
+        <img src="/Logo2.png" alt="Logo" />
       </a>
       <nav className="navbar">
         {(user?.rol === "Administrador" ? linksAdmin : linksCliente).map((x) => (

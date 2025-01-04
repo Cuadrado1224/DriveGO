@@ -1,0 +1,75 @@
+
+.banner-image {
+    width: 1500px; 
+    height: auto;
+    max-height: 300px;
+    object-fit: cover; 
+    display: block; 
+    margin: 0 auto; 
+    opacity: 0.8;
+}
+
+.banner-image text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+.overlay-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: white;
+    font-size: 2.5rem;  
+}
+.contact-text{
+    padding: 20px;
+    flex-basis: 60%;
+    text-align: center;
+
+}
+
+.contact-text h2{
+    color: #050a30;
+    font-family:'Oswald', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+.telefono-text h3{
+    color: #050a30;
+    font-family:'Oswald', sans-serif;
+    font-size: 20px;
+}
+.telefono-txt{
+    padding: 20px;
+    flex-basis: 40%;
+    text-align: center;
+}
+
+.logoCon-img img{
+    width: 200px;
+    height: 100px;
+    
+}
+
+.telefonoCon-txt h4{
+    color: rgb(14, 13, 13);
+    font-family:'Oswald', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+.btn-1{
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 15px 70px;
+    background-color: #050a30;
+    color: white;
+    border-radius: 4px;
+}
+  
+
+
+
