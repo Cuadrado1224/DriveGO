@@ -1,1 +1,1 @@
-export const BACK_URL="http://localhost/DriveGo-Main";
+export const BACK_URL="http://localhost/DriveGo";
