@@ -1,6 +1,10 @@
 <?php
 require('../FPDF/fpdf.php');
 require_once 'bd.php';
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
 $sql = "SELECT 
             v.mat_veh,
@@ -15,16 +19,11 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (!$vehiculos) {
-    echo json_encode(["error" => "No se encontraron datos de reservas para generar el reporte."]);
-    exit;
-}
-
 class PDF extends FPDF {
     function Header() {
         $this->SetFillColor(0, 102, 204);
         $this->Rect(0, 0, 210, 30, 'F');
-        $this->Image('../public/DriveGo-02-01.png', 150, 0, 50);
+        $this->Image('../public/Logo-sin_fodo.png', 150, 0, 40);
         $this->SetFont('Arial', 'B', 20);
         $this->SetTextColor(255, 255, 255);
         $this->Cell(170, 15, iconv("UTF-8","ISO-8859-1","Reporte de Vehículos Más Usados"), 0, 1, 'L', false);
@@ -43,21 +42,27 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->SetFillColor(0, 102, 204);
-$pdf->SetTextColor(255, 255, 255);
-$pdf->Cell(40, 10, 'Matricula', 1, 0, 'C', true);
-$pdf->Cell(40, 10, 'Marca', 1, 0, 'C', true);
-$pdf->Cell(40, 10, 'Modelo', 1, 0, 'C', true);
-$pdf->Cell(40, 10, 'Cantidad de Reservas', 1, 1, 'C', true);
-
-$pdf->SetFont('Arial', '', 8);
-$pdf->SetTextColor(0, 0, 0);
-foreach ($vehiculos as $vehiculo) {
-    $pdf->Cell(40, 10, $vehiculo['mat_veh'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $vehiculo['mar_veh'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $vehiculo['mod_veh'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $vehiculo['cantidad_reservas'], 1, 1, 'C');
+if (!$vehiculos) {
+    $pdf->Ln(20);
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1", "No se encontraron datos de reservas para generar el reporte."), 0, 1, 'C');
+} else {
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->SetFillColor(0, 102, 204);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(40, 10, 'Matricula', 1, 0, 'C', true);
+    $pdf->Cell(40, 10, 'Marca', 1, 0, 'C', true);
+    $pdf->Cell(40, 10, 'Modelo', 1, 0, 'C', true);
+    $pdf->Cell(40, 10, 'Cantidad de Reservas', 1, 1, 'C', true);
+    
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetTextColor(0, 0, 0);
+    foreach ($vehiculos as $vehiculo) {
+        $pdf->Cell(40, 10, $vehiculo['mat_veh'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $vehiculo['mar_veh'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $vehiculo['mod_veh'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $vehiculo['cantidad_reservas'], 1, 1, 'C');
+    }
 }
 
 $pdf->Output('D', "reporte_vehiculos_mas_usados.pdf");

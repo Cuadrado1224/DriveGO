@@ -1,6 +1,10 @@
 <?php
 require('../FPDF/fpdf.php');
 require_once 'bd.php';
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
 // Recibir los parámetros 'fecha_inicio' y 'fecha_fin' desde el cuerpo de la solicitud (JSON)
 $data = json_decode(file_get_contents('php://input'), true);
@@ -47,21 +51,15 @@ $stmt->bindParam(':fecha_fin', $fecha_fin, PDO::PARAM_STR);
 $stmt->execute();
 $vehiculos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (!$vehiculos) {
-    echo json_encode(["error" => "No se encontraron datos para el rango de fechas especificado."]);
-    exit;
-}
-
-// Clase para el reporte en PDF
 class PDF extends FPDF {
     function Header() {
         global $fecha_inicio, $fecha_fin;
         $this->SetFillColor(0, 102, 204);
         $this->Rect(0, 0, 210, 30, 'F');
-        $this->Image('../public/DriveGo-02-01.png', 150, 0, 50);
+        $this->Image('../public/Logo-sin_fodo.png', 150, 0, 40);
         $this->SetFont('Arial', 'B', 20);
         $this->SetTextColor(255, 255, 255);
-        $this->Cell(170, 15, iconv("UTF-8", "ISO-8859-1","Reporte de Vehículos por Fecha" ), 0, 1, 'L', false);
+        $this->Cell(170, 15, iconv("UTF-8", "ISO-8859-1","Reporte de Vehículos Más Usados" ), 0, 1, 'L', false);
         $this->Ln(10);
     }
 
@@ -73,39 +71,40 @@ class PDF extends FPDF {
     }
 }
 
-// Crear el PDF
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
-// Encabezado del reporte
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetTextColor(0, 0, 0);
-$pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1",'Reporte de Vehículos Más Usados'), 0, 1, 'L');
-$pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1","Rango de Fechas: $fecha_inicio a $fecha_fin"), 0, 1, 'L');
-$pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1","Número de Reservas: $total_reportes"), 0, 1, 'L');
-$pdf->Ln(5);
 
-// Cabecera de la tabla
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->SetFillColor(0, 102, 204);
-$pdf->SetTextColor(255, 255, 255);
-$pdf->Cell(40, 10, 'Matricula', 1, 0, 'C', true);
-$pdf->Cell(40, 10, 'Marca', 1, 0, 'C', true);
-$pdf->Cell(40, 10, 'Modelo', 1, 0, 'C', true);
-$pdf->Cell(40, 10, 'Cantidad de Reservas', 1, 1, 'C', true);
-
-// Datos de la tabla
-$pdf->SetFont('Arial', '', 9);
-$pdf->SetTextColor(0, 0, 0);
-
-foreach ($vehiculos as $vehiculo) {
-    $pdf->Cell(40, 10, $vehiculo['mat_veh'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $vehiculo['mar_veh'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $vehiculo['mod_veh'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $vehiculo['cantidad_reservas'], 1, 1, 'C');
+if (!$vehiculos) {
+    $pdf->Ln(20);
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1", "No se encontraron datos para el rango de fechas especificado."), 0, 1, 'C');
+} else {
+    $pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1","Rango de Fechas: $fecha_inicio a $fecha_fin"), 0, 1, 'L');
+    $pdf->Cell(0, 10, iconv("UTF-8", "ISO-8859-1","Número de Reservas: $total_reportes"), 0, 1, 'L');
+    $pdf->Ln(5);
+    
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->SetFillColor(0, 102, 204);
+    $pdf->SetTextColor(255, 255, 255);
+    $pdf->Cell(40, 10, 'Matricula', 1, 0, 'C', true);
+    $pdf->Cell(40, 10, 'Marca', 1, 0, 'C', true);
+    $pdf->Cell(40, 10, 'Modelo', 1, 0, 'C', true);
+    $pdf->Cell(40, 10, 'Cantidad de Reservas', 1, 1, 'C', true);
+    
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->SetTextColor(0, 0, 0);
+    
+    foreach ($vehiculos as $vehiculo) {
+        $pdf->Cell(40, 10, $vehiculo['mat_veh'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $vehiculo['mar_veh'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $vehiculo['mod_veh'], 1, 0, 'C');
+        $pdf->Cell(40, 10, $vehiculo['cantidad_reservas'], 1, 1, 'C');
+    }
 }
 
-// Generar el PDF
 $pdf->Output('D', 'reporte_vehiculos_rango_fechas_' . $fecha_inicio . '_a_' . $fecha_fin . '.pdf');
 ?>

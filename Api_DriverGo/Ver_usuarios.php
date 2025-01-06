@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 include 'bd.php';
 
-$query="SELECT id_usu,nom_usu,ape_usu,corr_usu,cargo FROM Usuarios;";
+$query="SELECT id_usu,nom_usu,ape_usu,corr_usu,cargo FROM usuarios";
 $stmt=$conn->prepare($query);
 
 try{

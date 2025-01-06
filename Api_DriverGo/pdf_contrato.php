@@ -2,6 +2,10 @@
 require('../FPDF/fpdf.php'); 
 
 require_once 'bd.php';
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (!isset($data['cedula_usu'])) {

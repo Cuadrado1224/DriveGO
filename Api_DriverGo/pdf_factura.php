@@ -1,6 +1,10 @@
 <?php
 require "../FPDF/code128.php";
 require_once 'bd.php';
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (!isset($data['id_reserva'])) {
@@ -47,7 +51,7 @@ $pdf = new PDF_Code128('P', 'mm', 'Letter');
 $pdf->SetMargins(17, 17, 17);
 $pdf->AddPage();
 $pdf->SetDrawColor(0, 0, 0);
-$pdf->Image('../public/DriveGo-02-01.png', 165, 12, 60, 60, 'PNG');
+$pdf->Image('../public/Logo-sin_fodo.png', 160, 12, 50, 40, 'PNG');
 
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->SetTextColor(32, 100, 210);

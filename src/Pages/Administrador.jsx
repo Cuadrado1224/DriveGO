@@ -38,7 +38,7 @@ const Administrador = () => {
       case "vehiculos":
         return <Ges_veh />;
       case "reportes":
-        return <Report />;
+        return <Report />
       case "tarifas":
         return <Tariff />;
       default:
