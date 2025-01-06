@@ -15,7 +15,9 @@ const Reserva = () => {
   const [vehiculos, setVehiculos] = useState([]); 
   const [fechaReserva, setFechaReserva] = useState("");
   const [fechaDevolucion, setFechaDevolucion] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [vehiculoSeleccionado, setVehiculoSeleccionado] = useState(null);
+  
   const manejoFecha = new Date();
 
   useEffect(() => {
@@ -37,6 +39,13 @@ const Reserva = () => {
     fetchVehiculos();
   }, []);
 
+  const handleVehiculoChange = (e) => {
+    const matricula = e.target.value;
+    setMatriculaVehiculo(matricula);
+    const vehiculo = vehiculos.find(v => v.mat_veh === matricula);
+    setVehiculoSeleccionado(vehiculo);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -50,19 +59,18 @@ const Reserva = () => {
       alert("Por favor, complete todos los campos");
       return;
     }
-  
-    const FechaReservaFormateada = format(new Date(fechaReserva), "yyyy-MM-dd");
-    const FechaDevolucionFormateada = format(new Date(fechaDevolucion), "yyyy-MM-dd");
-  
-    const data = {
-      cedulaUsuario,
-      nombreUsuario,
-      matriculaVehiculo,
-      fechaReserva: FechaReservaFormateada,
-      fechaDevolucion: FechaDevolucionFormateada,
-    };
+    
+    setIsLoading(true);
   
     try {
+
+        const data = {
+            cedulaUsuario,
+            nombreUsuario,
+            matriculaVehiculo,
+            fechaReserva: fechaReserva.toISOString().split('T')[0],
+            fechaDevolucion: fechaDevolucion.toISOString().split('T')[0],
+        };
       const response = await fetch(BACK_URL+"/Api_DriverGo/reserva.php", {
         method: "POST",
         headers: {
@@ -77,77 +85,158 @@ const Reserva = () => {
         alert("Error al realizar la reserva: " + result.error);
       } else {
         alert("Reserva exitosa");
-        console.log(result);
+        setCedulaUsuario("");
+        setNombreUsuario("");
+        setMatriculaVehiculo("");
+        setFechaReserva("");
+        setFechaDevolucion("");
+        setVehiculoSeleccionado(null);
       }
     } catch (error) {
       console.error("Error al conectar con el servidor:", error);
       alert("Error al conectar con el servidor para realizar la reserva.");
+    } finally {
+        setIsLoading(false);
     }
 };
 
+const calcularDias = () => {
+    if (fechaReserva && fechaDevolucion) {
+      const dias = Math.ceil((fechaDevolucion - fechaReserva) / (1000 * 60 * 60 * 24));
+      return dias;
+    }
+    return 0;
+  };
+
   return (
-    <div>
-      <h2>Reserva de Vehículos</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Cédula del conductor:</label>
-          <input
-            type="text"
-            id="cedulaUsuario"
-            value={cedulaUsuario}
-            onChange={(e) => setCedulaUsuario(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Nombre del conductor:</label>
-          <input
-            type="text"
-            id="nombreUsuario"
-            value={nombreUsuario}
-            onChange={(e) => setNombreUsuario(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Vehículo:</label>
-          <select
-            id="vehiculo"
-            value={matriculaVehiculo}
-            onChange={(e) => setMatriculaVehiculo(e.target.value)}
-          >
-            <option value="">Seleccione un vehículo</option>
-            {vehiculos.map((vehiculo) => (
-              <option key={vehiculo.mat_veh} value={vehiculo.mat_veh}>
-                {`${vehiculo.mat_veh} - ${vehiculo.mar_veh} ${vehiculo.mod_veh} (${vehiculo.anio_veh})`}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Fecha de Reserva:</label>
-          <DatePicker
-            selected={fechaReserva}
-            onChange={(fecha) => setFechaReserva(fecha)}
-            minDate={manejoFecha}
-            required
-            placeholderText="Selecciona una fecha"
-            locale={es}
-          />
-        </div>
-        <div>
-          <label>Fecha de Devolución:</label>
-          <DatePicker
-            selected={fechaDevolucion}
-            onChange={(fecha) => setFechaDevolucion(fecha)}
-            minDate={fechaReserva || manejoFecha}
-            placeholderText="Selecciona una fecha"
-            locale={es}
-            required
-          />
-        </div>
-        <button type="submit">Reservar Vehículo</button>
-      </form>
+    <div className="reserva-container">
+      <div className="reserva-card">
+        <h2>Reserva de Vehículos</h2>
+        <form onSubmit={handleSubmit} className="reserva-form">
+          <div className="form-group">
+            <label htmlFor="cedula">Cédula del conductor</label>
+            <input
+              type="text"
+              id="cedula"
+              value={cedulaUsuario}
+              onChange={(e) => setCedulaUsuario(e.target.value)}
+              placeholder="Ingrese la cédula"
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="nombre">Nombre del conductor</label>
+            <input
+              type="text"
+              id="nombre"
+              value={nombreUsuario}
+              onChange={(e) => setNombreUsuario(e.target.value)}
+              placeholder="Ingrese el nombre"
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="vehiculo">Vehículo</label>
+            <select
+              id="vehiculo"
+              value={matriculaVehiculo}
+              onChange={handleVehiculoChange}
+              className="form-select"
+            >
+              <option value="">Seleccione un vehículo</option>
+              {vehiculos.map((vehiculo) => (
+                <option key={vehiculo.mat_veh} value={vehiculo.mat_veh}>
+                  {`${vehiculo.mat_veh} - ${vehiculo.mar_veh} ${vehiculo.mod_veh} (${vehiculo.anio_veh})`}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Fecha de Reserva</label>
+              <DatePicker
+                selected={fechaReserva}
+                onChange={(fecha) => setFechaReserva(fecha)}
+                minDate={manejoFecha}
+                className="form-input"
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Selecciona una fecha"
+                locale={es}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Fecha de Devolución</label>
+              <DatePicker
+                selected={fechaDevolucion}
+                onChange={(fecha) => setFechaDevolucion(fecha)}
+                minDate={fechaReserva || manejoFecha}
+                className="form-input"
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Selecciona una fecha"
+                locale={es}
+                required
+              />
+            </div>
+          </div>
+
+          {vehiculoSeleccionado && (
+            <div className="vehiculo-seleccionado">
+              <div className="vehiculo-info">
+                <div className="vehiculo-imagen">
+                  <img
+                                      src={`${BACK_URL}/Api_DriverGo/${vehiculoSeleccionado.img_veh || "/Public/Img_default.jpg"}`}
+                                      onError={(e) => {
+                                        e.target.src = "/Public/Img_default.jpg";
+                                      }}
+                                    />
+                </div>
+                <div className="vehiculo-detalles">
+                  <h3>{`${vehiculoSeleccionado.mar_veh} ${vehiculoSeleccionado.mod_veh}`}</h3>
+                  <div className="detalles-grid">
+                    <div className="detalle-item">
+                      <span>DÍAS SELECCIONADOS:</span>
+                      <strong>{calcularDias()}</strong>
+                    </div>
+                    <div className="detalle-item">
+                      <span>TRANSMISIÓN:</span>
+                      <strong>{`${vehiculoSeleccionado.tip_trans_veh}`}</strong>
+                    </div>
+                    <div className="detalle-item">
+                      <span>PASS/LUG:</span>
+                      <strong>{`${vehiculoSeleccionado.num_ocu_veh}`}</strong>
+                    </div>
+                    <div className="detalle-item">
+                      <span>COMBUSTIBLE:</span>
+                      <strong>{`${vehiculoSeleccionado.combustible}`}</strong>
+                    </div>
+                    <div className="precio-total">
+                      <span>{`${vehiculoSeleccionado.precio_veh}`}</span> x Día
+                      <div className="total">
+                        ${(vehiculoSeleccionado.precio_veh* calcularDias()).toFixed(2)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button 
+                type="submit" 
+                className={`submit-button ${isLoading ? 'loading' : ''}`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Procesando..." : "RESERVAR"}
+              </button>
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
+
 };
 
 export default Reserva;
