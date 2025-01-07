@@ -1,4 +1,3 @@
-FROM php:8.1-fpm
 FROM php:7.4-apache
 
 # Copia los archivos del proyecto al contenedor
