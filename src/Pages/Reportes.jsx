@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/Reportes.css";
+import {BACK_URL} from "../config.js";
 
 const Reportes = () => {
   const [tipoReporte, setTipoReporte] = useState("");
@@ -56,19 +57,19 @@ const Reportes = () => {
       if (categoriaReporte === "demanda") {
         switch (tipoReporte) {
           case "anual":
-            endpoint = "/Api_DriverGo/pdf_reporte_demanda_anual.php";
+            endpoint = "/pdf_reporte_demanda_anual.php";
             payload = { anio };
             break;
           case "mensual":
-            endpoint = "/Api_DriverGo/pdf_reporte_demanda_mensual.php";
+            endpoint = "/pdf_reporte_demanda_mensual.php";
             payload = { anio, mes };
             break;
           case "diario":
-            endpoint = "/Api_DriverGo/pdf_reporte_demanda_diaria.php";
+            endpoint = "/pdf_reporte_demanda_diaria.php";
             payload = { fecha: fecha };
             break;
           case "rango":
-            endpoint = "/Api_DriverGo/pdf_reporte_demanda_fechas.php";
+            endpoint = "/pdf_reporte_demanda_fechas.php";
             payload = { fecha_inicio: fechaInicio, fecha_fin: fechaFin };
             break;
           default:
@@ -78,19 +79,19 @@ const Reportes = () => {
       } else if (categoriaReporte === "ingresos") {
         switch (tipoReporte) {
           case "anual":
-            endpoint = "/Api_DriverGo/pdf_reporte_anual.php";
+            endpoint = "/pdf_reporte_anual.php";
             payload = { anio };
             break;
           case "mensual":
-            endpoint = "/Api_DriverGo/pdf_reporte_mensual.php";
+            endpoint = "/pdf_reporte_mensual.php";
             payload = { anio, mes };
             break;
           case "diario":
-            endpoint = "/Api_DriverGo/pdf_reporte_diario.php";
+            endpoint = "/pdf_reporte_diario.php";
             payload = { fecha_reporte: fecha };
             break;
           case "rango":
-            endpoint = "/Api_DriverGo/pdf_reporte_fechas.php";
+            endpoint = "/pdf_reporte_fechas.php";
             payload = { fecha_inicio: fechaInicio, fecha_fin: fechaFin };
             break;
           default:
@@ -99,7 +100,7 @@ const Reportes = () => {
         }
       }
 
-      const response = await fetch(`http://localhost/DriveGo${endpoint}`, {
+      const response = await fetch(`${BACK_URL}/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

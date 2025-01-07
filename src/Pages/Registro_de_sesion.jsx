@@ -46,7 +46,7 @@ const Registro = ({ closeModal }) => {
 
     try {
       const response = await axios.post(
-        BACK_URL+"/Api_DriverGo/Crear_Usuario.php",
+        BACK_URL+"/Crear_Usuario.php",
         {
           nom_usu,
           ape_usu,

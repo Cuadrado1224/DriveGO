@@ -16,7 +16,7 @@ const Tarifas = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          BACK_URL+"/Api_DriverGo/mostrar_veh.php"
+          BACK_URL+"/mostrar_veh.php"
         );
         if (response.data.status) {
           setVehiculos(response.data.data);
@@ -49,7 +49,7 @@ const Tarifas = () => {
     };
     try {
       const response = await fetch(
-        BACK_URL+"/Api_DriverGo/actualizar_tarifa.php",
+        BACK_URL+"/actualizar_tarifa.php",
         {
           method: "POST",
           headers: {

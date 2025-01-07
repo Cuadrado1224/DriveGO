@@ -36,7 +36,7 @@ const VerificarCorreo = () => {
 
     try {
       const response = await axios.post(
-        BACK_URL+"/Api_DriverGo/Verificar_usuario.php",
+        BACK_URL+"/Verificar_usuario.php",
         { correo, token }
       );
 

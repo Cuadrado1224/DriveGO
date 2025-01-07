@@ -57,7 +57,7 @@ const ReservaModal = ({ vehiculo, userInfo, onClose }) => {
     };
 
     try {
-      const response = await fetch(BACK_URL+"/Api_DriverGo/reserva.php", {
+      const response = await fetch(BACK_URL+"/reserva.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

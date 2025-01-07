@@ -23,7 +23,7 @@ const Reserva = () => {
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
-        const response = await fetch(BACK_URL+"/Api_DriverGo/mostrar_veh.php");
+        const response = await fetch(BACK_URL+"/mostrar_veh.php");
         const data = await response.json();
         if (data.status) {
           setVehiculos(data.data); 
@@ -71,7 +71,7 @@ const Reserva = () => {
             fechaReserva: fechaReserva.toISOString().split('T')[0],
             fechaDevolucion: fechaDevolucion.toISOString().split('T')[0],
         };
-      const response = await fetch(BACK_URL+"/Api_DriverGo/reserva.php", {
+      const response = await fetch(BACK_URL+"/reserva.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -189,7 +189,7 @@ const calcularDias = () => {
               <div className="vehiculo-info">
                 <div className="vehiculo-imagen">
                   <img
-                                      src={`${BACK_URL}/Api_DriverGo/${vehiculoSeleccionado.img_veh || "/Public/Img_default.jpg"}`}
+                                      src={`${BACK_URL}/${vehiculoSeleccionado.img_veh || "/Public/Img_default.jpg"}`}
                                       onError={(e) => {
                                         e.target.src = "/Public/Img_default.jpg";
                                       }}

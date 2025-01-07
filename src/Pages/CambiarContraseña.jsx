@@ -11,7 +11,7 @@ const CambiarContraseña = ({ closeModal }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        BACK_URL+"/Api_DriverGo/Recuperar_contr.php",
+        BACK_URL+"/Recuperar_contr.php",
         {
           cont_temp,
           cont,

@@ -33,7 +33,7 @@ const GestionVehiculos = () => {
 
   const handleDeleteClick = (vehi) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este vehículo?")) {
-      fetch(BACK_URL+"/Api_DriverGo/Borrar_vehiculo.php", {
+      fetch(BACK_URL+"/Borrar_vehiculo.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const GestionVehiculos = () => {
   };
 
   useEffect(() => {
-    fetch(BACK_URL+"/Api_DriverGo/Ver_vehiculos.php")
+    fetch(BACK_URL+"/Ver_vehiculos.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {
