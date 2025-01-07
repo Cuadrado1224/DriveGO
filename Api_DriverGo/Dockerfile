@@ -1,6 +1,11 @@
 FROM php:7.4-apache
 
-# Copia los archivos del proyecto al contenedor
+# Instalar extensiones necesarias
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && docker-php-ext-install pdo_pgsql
+
+# Copiar los archivos del proyecto
 COPY . /var/www/html
 
 # Exponer el puerto 80 para acceso externo
