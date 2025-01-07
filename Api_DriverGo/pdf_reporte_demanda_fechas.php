@@ -53,7 +53,7 @@ class PDF extends FPDF {
         global $fecha_inicio, $fecha_fin;
         $this->SetFillColor(0, 102, 204);
         $this->Rect(0, 0, 210, 30, 'F');
-        $this->Image('../public/Logo-sin_fodo.png', 150, 0, 40);
+        $this->Image('Logo-sin_fodo.png', 150, 0, 40);
         $this->SetFont('Arial', 'B', 20);
         $this->SetTextColor(255, 255, 255);
         $this->Cell(170, 15, iconv("UTF-8", "ISO-8859-1","Reporte de Vehículos Más Usados" ), 0, 1, 'L', false);

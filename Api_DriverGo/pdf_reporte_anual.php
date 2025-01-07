@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: " . FRONT_URL);
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-require 'FPDF/fpdf.php';
+require '../FPDF/fpdf.php';
 require_once 'bd.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -37,7 +37,7 @@ class PDF extends FPDF {
     function Header() {
         $this->SetFillColor(0, 102, 204);
         $this->Rect(0, 0, 210, 30, 'F');
-        $this->Image('../public/Logo-sin_fodo.png', 150, 0, 40);
+        $this->Image('Logo-sin_fodo.png', 150, 0, 40);
         $this->SetFont('Arial', 'B', 20);
         $this->SetTextColor(255, 255, 255);
         $this->Cell(170, 15, "Reporte Anual de Alquiler", 0, 1, 'L', false);
