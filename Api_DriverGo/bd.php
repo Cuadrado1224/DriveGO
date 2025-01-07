@@ -1,6 +1,6 @@
 <?php
 $host = 'dpg-ctu98f3qf0us73f25n70-a';
-$dbname = '5432';
+$dbname = 'drivego';
 $user = 'admin';
 $password = 'OSVOdxpyIn5vQ4Vy1uUMUqdAvF37Gl9t';
 try {
