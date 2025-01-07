@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "../Styles/Registro_adm.css";
 import { validarEntrada, validarCadena } from '../Controles/Controles';
 import axios from 'axios';
+import {BACK_URL} from "../config.js";
 
 const Registro_adm = ({ closeModal }) => {
   useEffect(() => {
