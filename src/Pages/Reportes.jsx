@@ -100,7 +100,7 @@ const Reportes = () => {
         }
       }
 
-      const response = await fetch(`${BACK_URL}/${endpoint}`, {
+      const response = await fetch(`${BACK_URL}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
