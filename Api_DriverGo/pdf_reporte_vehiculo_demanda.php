@@ -1,10 +1,11 @@
 <?php
-require('../FPDF/fpdf.php');
-require_once 'bd.php';
 include 'config.php';
 header("Access-Control-Allow-Origin: " . FRONT_URL);
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
+
+require('FPDF/fpdf.php');
+require_once 'bd.php';
 
 $sql = "SELECT 
             v.mat_veh,
