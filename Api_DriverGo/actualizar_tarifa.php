@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 
-include 'config.php';
+include 'bd.php';
 
 $input = json_decode(file_get_contents('php://input'), true); 
 if (isset($input['mat_veh']) && isset($input['precio_veh'])) {
