@@ -49,8 +49,8 @@ const ReservaModal = ({ vehiculo, userInfo, onClose }) => {
 
     const data = {
       cedulaUsuario: form.cedula,
-      nombreUsuario: userInfo.nombre, // Asume que userInfo tiene los datos del usuario.
-      matriculaVehiculo: vehiculo.matricula, // Asume que vehiculo contiene los detalles del vehículo.
+      nombreUsuario: userInfo.nombre, 
+      matriculaVehiculo: vehiculo.matricula, 
       fechaReserva: form.fechaInicio,
       fechaDevolucion: form.fechaFin,
     };

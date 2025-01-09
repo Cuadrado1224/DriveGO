@@ -34,21 +34,50 @@ const Info_veh = ({ vehiculo, onClose }) => {
         <h2>
           {vehiculo.mar_veh} {vehiculo.mod_veh}
         </h2>
+        <div className="imagen-contain">
+                <img
+                  src={`http://localhost/DriveGo/Api_DriverGo/${vehiculo.img_veh}`}
+                  alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
+                  className="vehiculo-img"
+                  style={{
+                    width: "420px",
+                    height: "250px",
+                    objectFit: "cover",
+                  }}
+                  onError={(e) => {
+                    e.target.src = "/Public/Img_default.jpg";
+                  }}
+                />
+              </div>
         <div className="modal-info">
           <p>
-            <strong>Tipo de Vehículo:</strong> {vehiculo.tip_veh}
+          <i className="fa-solid fa-car-side"> <strong>Tipo : {vehiculo.tip_veh}</strong>
+          </i>
+             
           </p>
           <p>
-            <strong>Transmisión:</strong> {vehiculo.tip_trans_veh}
+          <i className="fa-solid fa-calendar"> <strong>Año : {vehiculo.anio_veh}</strong> 
+          </i>
           </p>
           <p>
-            <strong>Combustible:</strong> {vehiculo.combustible}
+          <i className="fa-solid fa-gear"><strong> Transmisión: {vehiculo.tip_trans_veh}</strong> 
+          </i>
           </p>
           <p>
-            <strong>Número de ocupantes:</strong> {vehiculo.num_ocu_veh} personas
+          <i className="fa-solid fa-gas-pump"> <strong>Combustible: {vehiculo.combustible}</strong> 
+          </i>
           </p>
           <p>
-            <strong>Precio:</strong> ${vehiculo.precio_veh} / día
+          <i className="fa-solid fa-user"><strong>Capacidad:{vehiculo.num_ocu_veh} personas</strong> 
+          </i>
+          </p>
+          <p>
+          <i className="fa-solid fa-car-side"><strong> Puertas: {vehiculo.num_pue_veh} puertas</strong> 
+          </i>
+          </p>
+          <p>
+          <i className="fa-solid fa-dollar-sign"><strong> Tarifa: {vehiculo.precio_veh} / día</strong> 
+          </i>
           </p>
         </div>
         <div className="modal-buttons">

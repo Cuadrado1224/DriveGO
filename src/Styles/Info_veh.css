@@ -9,6 +9,8 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overflow: auto;
+
   }
   
   .modal-content {
@@ -18,10 +20,18 @@
     max-width: 500px;
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    
+    
+  }
+  .modal-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
   }
   
   .modal-info p {
+    display: inline-block;
+   
     margin: 10px 0;
     font-size: 16px;
   }
@@ -30,6 +40,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+  }
+  .imagen-contain{
+    text-align: center;
+    border: 0;
+    border-radius: 15px;
+  }
+  .vehiculo-img{
+    border-radius: 15px;
   }
   
   .alquilar-button,
