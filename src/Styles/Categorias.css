@@ -149,9 +149,11 @@
     max-width: none;/*280px*/
     margin-bottom: 20px;/*0 auto*/
   }
+
   .filtros-container {
     padding: 15px;
   }
+
   .filter-items {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

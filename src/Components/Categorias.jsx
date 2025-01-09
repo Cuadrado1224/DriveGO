@@ -85,7 +85,6 @@ const Filtros = ({ onCategoryChange, onBrandChange }) => {
           items={categorias}
           onItemChange={handleCategoryChange}
         />
-
         <div className="separator"></div>
         <FilterSection
           title="Marcas"
