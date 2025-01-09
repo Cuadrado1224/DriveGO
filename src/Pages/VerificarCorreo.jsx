@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/VerificarCorreo.css"; 
+import {BACK_URL} from "../config.js";
 
 const VerificarCorreo = () => {
   const [correo, setCorreo] = useState("");
@@ -35,7 +36,7 @@ const VerificarCorreo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/Verificar_usuario.php",
+        BACK_URL+"/Verificar_usuario.php",
         { correo, token }
       );
 

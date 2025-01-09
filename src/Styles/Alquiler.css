@@ -1,14 +1,13 @@
 .vehiculos-container {
-  margin-left: 155px;
-display: grid;
+  margin-left: 175px;
+  display: grid;
   grid-template-columns: repeat(3, 1fr); 
-  gap: 30px; 
+  gap: 40px; 
   padding: 20px;
   justify-items: center; 
 }
 .alquiler-container{
   display: flex;
-  padding-left: 10px;
 }
 
 .tit-img h3{
@@ -28,15 +27,14 @@ display: grid;
 }
 
 .vehiculo-card {
-  display: inline-block;
   width: 300px;
-  height: 550px;
+  height: 600PX;
   border: 1px solid #d6d6d6;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  background-color: #34CDAB;
+    background-color: #5cb6f9;
 }
 
 .vehiculo-card:hover {
@@ -56,22 +54,19 @@ display: grid;
   margin: 5px 0;
 }
 
-.vehiculo-details {
+.vehiculo-details  {
   margin-top: 10px;
   padding-top: 10px;
   display: flex;
   border-top: 1px solid #e6e6e6;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
-  gap: 15px; 
 }
-
-.vehiculo-item {
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  color: black;
-  font-size: 16px;
+.item{
+  margin: 0;
+  font-size: 16px; 
+  color: black; 
+  text-align: center; 
 }
 
 .buton {

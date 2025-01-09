@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../Styles/Mod_reserva.css";
+import {BACK_URL} from "../config.js";
 
 const ReservaModal = ({ vehiculo, userInfo, onClose }) => {
   const [form, setForm] = useState({
@@ -56,7 +57,7 @@ const ReservaModal = ({ vehiculo, userInfo, onClose }) => {
     };
 
     try {
-      const response = await fetch("http://localhost/DriveGo/Api_DriverGo/reserva.php", {
+      const response = await fetch(BACK_URL+"/reserva.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

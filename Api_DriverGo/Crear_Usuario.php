@@ -1,5 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5173");
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
@@ -57,7 +58,7 @@ if (isset($input['nom_usu'])&&isset($input['ape_usu']) && isset($input['cor_usu'
                     <h1>Bienvenido a DriveGo</h1>
                     <p>Gracias por registrarte, $nom.</p>
                     <p>Por favor, haz clic en el siguiente enlace para verificar tu cuenta:</p>
-                    <a href='http://localhost:5173/verificar?correo=$corr&token=$codigo_verificacion'>
+                    <a href='https://front-drivego.onrender.com/verificar?correo=$corr&token=$codigo_verificacion'>
                         Verificar mi cuenta
                     </a>
                     

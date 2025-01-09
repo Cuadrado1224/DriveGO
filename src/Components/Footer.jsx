@@ -5,7 +5,7 @@ const Footer = () => {
   return (
    <footer className='footer'>
     <a href="/" className="logo">
-        <img src="/Logo.jpg" alt='logo de la empresa'/> 
+        <img src="/Logo-sin_fodo.png" alt='logo de la empresa'/> 
       </a>
       <div className='ubicacion'>
        <a>

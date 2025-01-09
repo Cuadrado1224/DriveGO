@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/Registro_veh_adm.css";
 import axios from "axios";
+import { BACK_URL } from "../config.js";
 
 const Registro_veh_adm = ({ closeModal }) => {
   useEffect(() => {
@@ -46,7 +47,7 @@ const Registro_veh_adm = ({ closeModal }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/Cargar_veh.php",
+        BACK_URL+"/Cargar_veh.php",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

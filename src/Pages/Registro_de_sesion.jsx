@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Registro_de_sesion.css";
 import axios from "axios";
 import { validarEntrada, validarCadena } from "../Controles/Controles";
+import {BACK_URL} from "../config.js";
 
 
 const Registro = ({ closeModal }) => {
@@ -45,7 +46,7 @@ const Registro = ({ closeModal }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/Crear_Usuario.php",
+        BACK_URL+"/Crear_Usuario.php",
         {
           nom_usu,
           ape_usu,

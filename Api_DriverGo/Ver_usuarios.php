@@ -1,5 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:5173");
+include 'config.php';
+header("Access-Control-Allow-Origin: " . FRONT_URL);
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
@@ -9,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 include 'bd.php';
 
-$query="SELECT id_usu,nom_usu,ape_usu,corr_usu,cargo FROM Usuarios;";
+$query="SELECT id_usu,nom_usu,ape_usu,corr_usu,cargo FROM usuarios";
 $stmt=$conn->prepare($query);
 
 try{

@@ -1,57 +1,103 @@
-.banner-conten{
-  padding-bottom: 100px;
-  margin-left: 20px;
-  margin-top: 50px;
-  border: 2px solid #011950;
-  border-radius: 5px; 
-  margin-right: 20px; 
-  box-shadow: 0 0 20px rgba(148, 116, 224, 0.5); 
+
+.carusell-container{
+  position: relative;
+  width: 100%;
+  max-width: 1200px; /* Opcional: Máximo ancho para pantallas grandes */
+  margin: 0 auto; /* Centra el carrusel */
+  overflow: hidden;
 }
 
-.banner-img {
-  padding-left: 70px;
-  padding-bottom: 10px;
-  flex: 1;
-  float: left;
+.carusell{
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
- 
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
-.bannerText {
-  flex: 1;
+.carusell-imagen{
+  flex: 0 0 100%;
   text-align: center;
-  padding-right: 90px;
-  padding-top: 110px;
-   height: 50vh;
+  
 }
 
-.bannerText p {
-  font-style: italic;
-  font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+.carusell-imagen.active{
+  opacity: 1;
 }
-.bannerText h1 {
-  font-size: 25px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.banner-img img {
-  margin-top: 58px;
-  width: 800px;
-  height: 60vh;
-  max-width: 100%;
+.carusell-imagen img{
   height: auto;
-  margin-right: 100px;
+  width: 100%;
+  object-fit: contain;
+  
+}
+.carusell-capt{
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-size: 1.2rem;
+}
+.carusell-capt h3{
+  font-size: 2rem;
+}
+.carusell-capt p{
+  font-size: 1rem;
+}
+.carusell-control{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px; 
+  cursor: pointer;
+  z-index: 1000;
+}
+.carusell-control.prev{
+  font-size: 30px;
+  left: 10px;
+}
+.carusell-control.next{
+  font-size: 30px;
+  right: 10px;
 }
 
-.btn-1 {
-  display: inline-block;
-  padding: 10px 25px;
-  background-color: #011950;
-  color: white;
-  border-radius: 4px;
+/* Diseño responsivo */
+@media (max-width: 768px) {
+  .carusell-container{
+    max-width: 100%;
+  }
+  .carusell-imagen img{
+    max-height: 400px;
+  }
+  .carusell-capt h3 {
+    font-size: 1.5rem;
+  }
+
+  .carusell-capt p {
+    font-size: 0.9rem;
+  }
+
+  .carusell-control {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carusell-imagen img{
+    max-height: 300px;
+  }
+  .carusell-capt h3 {
+    font-size: 1.2rem;
+  }
+
+  .carusell-capt p {
+    font-size: 0.8rem;
+  }
+
+  .carusell-control {
+    font-size: 5px;
+    padding: 14px;
+  }
 }

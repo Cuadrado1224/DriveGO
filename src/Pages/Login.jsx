@@ -5,6 +5,7 @@ import axios from "axios";
 import Registro from "./Registro_de_sesion";
 import Recuperar from "../Components/Recuperar_cont";
 import CambiarContraseña from "./CambiarContraseña";
+import {BACK_URL} from "../config.js";
 
 
 const Login = ({ closeModal }) => {
@@ -29,7 +30,7 @@ const Login = ({ closeModal }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/login.php",
+        BACK_URL+"/login.php",
         {
           correo_usuario,
           contrasena,
@@ -58,7 +59,7 @@ const Login = ({ closeModal }) => {
         }else if (response.data.rol === "Usuario") {
           console.log("Inicio de sesión como Administrador");
           closeModal();
-          navigate("/reserva");
+          navigate("/empleado");
         }
       } else {
         alert(response.data.message);
@@ -86,7 +87,7 @@ const Login = ({ closeModal }) => {
             &times;
           </span>
           <a href="/" className="let">
-            <img src="/DriveGo-02-01.png" alt="Logo" />
+            <img src="/Logo-sin_fodo.png" alt="Logo" />
           </a>
           <h2>Iniciar Sesión</h2>
           <input

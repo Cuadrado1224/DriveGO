@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../Styles/Recuperar_cont.css";
+import { BACK_URL } from "../config.js";
 
 const Recuperar_cont = ({ closeModal }) => {
   const [email, setEmail] = useState("");
@@ -9,7 +10,7 @@ const Recuperar_cont = ({ closeModal }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost/DriveGo/Api_DriverGo/Correo_cont.php",
+        BACK_URL+"/Correo_cont.php",
         { email },
         {
           headers: {

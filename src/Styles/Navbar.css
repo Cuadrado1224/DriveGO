@@ -4,44 +4,44 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 5px 5%;
-    background:#011950;
+    padding: 1rem 5%;
+    background:#f4f6fc;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
     
   }
   
   .logo {
-    font-size: 40%;
+    font-size: clamp(1.5rem, 2vw, 1.875rem);
     color: white;
-    font-weight: 800;
+    font-weight: 700;
   }
   
   .logo img {
-    margin-top: 10px;
-    height: 70px;
-    width:70px;
-   
+    height: auto;
+    max-height: 120px;
+    width: auto;
+    max-width: 100%;
   }
   
   .nav-item {
-    color: white;
+    color: #050a30;
     text-decoration: none;
     transition: 0.3s;
-    margin: 0 100px;
+    margin: 0 1rem;
     z-index: 1;
     position: relative;
 
   }
   .nav-item.active {
-    color: #34cdab; 
+    color: #050a30; 
 }
   
   .nav-item:not(.is-active):hover {
-    color: #32d874;
+    color: #5cb6f9;
   }
   
   .nav-item:not(.is-active):hover::before {
@@ -59,10 +59,10 @@
  
   .navbar a {
     position: relative;
-    font-size: 18px;
-    color: white;
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    color: #050a30;
     font-weight: 500;
-    margin-left: 60px;
+    margin-left: 1rem;
   }
   
   .navbar a::after {
@@ -73,7 +73,7 @@
     height: 2px;
     width: 100%;
     transform: scaleX(0);
-    background-color: white;
+    background-color: #5cb6f9;
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }
@@ -84,6 +84,67 @@
   }
   .Button-head{
     border-radius: 5px;
-    color: black;
-    background-image: linear-gradient(to left, #34cdab, #32d874);
+    color: #5cb6f9;
+    background-image: linear-gradient(to left, #050a30, #050a30);
   }
+
+  @media screen and (max-width: 1024px) {
+    .header-nav {
+        padding: 0.5rem 3%;
+    }
+    
+    .nav-item {
+        margin: 0 0.5rem;
+    }
+    
+    .navbar a {
+        margin-left: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header-nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .logo img {
+        max-height: 80px;
+    }
+    
+    .navbar {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .navbar a {
+        margin: 0.5rem;
+        font-size: 1rem;
+    }
+    
+    .nav-item {
+        margin: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header-nav {
+        padding: 0.5rem;
+    }
+    
+    .logo img {
+        max-height: 60px;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar a {
+        margin: 0.3rem;
+    }
+}
