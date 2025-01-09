@@ -12,7 +12,7 @@ const Home = () => {
     const fetchVehiculos = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${BACK_URL}/Api_DriverGo/mostrar_veh_home.php`);
+        const response = await fetch(`${BACK_URL}/mostrar_veh_home.php`);
         const data = await response.json();
         if (data.status) {
           setVehiculos(data.data);
@@ -51,7 +51,7 @@ const Home = () => {
               <article key={index} className="oferta">
                 <div className="oferta-img">
                   <img
-                    src={`${BACK_URL}/Api_DriverGo/${vehiculo.img_veh || "/Public/Img_default.jpg"}`}
+                    src={`${BACK_URL}/${vehiculo.img_veh || "/Public/Img_default.jpg"}`}
                     alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                     onError={(e) => {
                       e.target.src = "/Public/Img_default.jpg";

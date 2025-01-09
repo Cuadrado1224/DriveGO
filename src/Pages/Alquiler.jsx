@@ -19,7 +19,7 @@ const Alquiler = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          BACK_URL+"/Api_DriverGo/mostrar_veh.php"
+          BACK_URL+"/mostrar_veh.php"
         );
         if (response.data.status) {
           setVehiculos(response.data.data);
@@ -109,7 +109,7 @@ const Alquiler = () => {
               </div>
               <div className="imagen-container">
                 <img
-                  src={`${BACK_URL}/Api_DriverGo/${vehiculo.img_veh}`}
+                  src={`${BACK_URL}/${vehiculo.img_veh}`}
                   alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                   className="vehiculo-image"
                   style={{
