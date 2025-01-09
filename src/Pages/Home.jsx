@@ -8,6 +8,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
+  
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
