@@ -5,12 +5,14 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 20px;
-  /*height: calc(100vh - 40px);
-  overflow-y:auto;*/
-}
 
+}
 .filtros-container {
   padding: 20px;
+  position: sticky;
+    padding:20px;
+    width:100%;
+    top: 0;
 }
 
 .filtros-header {
@@ -21,7 +23,7 @@
 }
 
 .filtros-title {
-  font-size: 1.7rem;
+  font-size: 1.50rem;
   font-weight: 600;
   color: white;
   margin: 0;

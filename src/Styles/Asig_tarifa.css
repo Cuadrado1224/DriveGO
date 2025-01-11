@@ -13,7 +13,7 @@
   
   .modal-content {
     background: #fff; 
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px; 
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
     max-width: 500px; 
@@ -23,20 +23,20 @@
   }
   
   .modal-content h3 {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 2vw, 1.8rem);;
     margin-bottom: 15px;
     color: #333;
   }
   
   .modal-content p {
-    font-size: 1rem;
+    font-size:  clamp(0.9rem, 1vw, 1rem);
     color: #555;
     margin-bottom: 15px;
   }
   
   .modal-content label {
     display: block;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 1vw, 1rem);;
     margin-bottom: 10px;
     color: #555;
   }
@@ -52,32 +52,36 @@
   }
   
   .modal-content input:focus {
-    border-color: #007bff; 
+    border-color: ##121d70;
   }
   
   .modal-buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 20px;
+    gap: 10px;
   }
   
   .modal-buttons button {
-    background: #007bff; 
+    background: #050a30;
     color: white; 
     border: none;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size:  clamp(0.9rem, 1vw, 1rem);;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s ease;
+    flex: 1 1 auto;
+    max-width: 150px;
   }
   
   .modal-buttons button:hover {
-    background: #0056b3; 
+    background: #007bff;
   }
   
   .modal-buttons button:last-child {
-    background: #dc3545; 
+    background: #bd0909;
   }
   
   .modal-buttons button:last-child:hover {
@@ -95,4 +99,48 @@
       transform: translateY(0);
     }
   }
-  
+keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .modal-content p,
+  .modal-content label {
+    font-size: 0.875rem;
+  }
+
+  .modal-buttons button {
+    font-size: 0.875rem;
+    padding: 8px 15px;
+  }
+}

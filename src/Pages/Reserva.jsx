@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
-import { format } from "date-fns";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import "../Styles/Reserva.css";
-import {BACK_URL} from "../config.js";
+import { BACK_URL } from "../config.js";
 
 registerLocale("es", es);
 
@@ -12,21 +11,22 @@ const Reserva = () => {
   const [cedulaUsuario, setCedulaUsuario] = useState("");
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [matriculaVehiculo, setMatriculaVehiculo] = useState("");
-  const [vehiculos, setVehiculos] = useState([]); 
-  const [fechaReserva, setFechaReserva] = useState("");
-  const [fechaDevolucion, setFechaDevolucion] = useState("");
+  const [vehiculos, setVehiculos] = useState([]);
+  const [fechaReserva, setFechaReserva] = useState(null);
+  const [fechaDevolucion, setFechaDevolucion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [vehiculoSeleccionado, setVehiculoSeleccionado] = useState(null);
-  
+  const [error, setError] = useState(null);
+
   const manejoFecha = new Date();
 
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
-        const response = await fetch(BACK_URL+"/mostrar_veh.php");
+        const response = await fetch(BACK_URL + "/mostrar_veh.php");
         const data = await response.json();
         if (data.status) {
-          setVehiculos(data.data); 
+          setVehiculos(data.data);
         } else {
           alert("No se pudieron cargar los vehículos: " + data.message);
         }
@@ -42,65 +42,11 @@ const Reserva = () => {
   const handleVehiculoChange = (e) => {
     const matricula = e.target.value;
     setMatriculaVehiculo(matricula);
-    const vehiculo = vehiculos.find(v => v.mat_veh === matricula);
+    const vehiculo = vehiculos.find((v) => v.mat_veh === matricula);
     setVehiculoSeleccionado(vehiculo);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    if (
-      !cedulaUsuario ||
-      !nombreUsuario ||
-      !matriculaVehiculo ||
-      !fechaReserva ||
-      !fechaDevolucion
-    ) {
-      alert("Por favor, complete todos los campos");
-      return;
-    }
-    
-    setIsLoading(true);
-  
-    try {
-
-        const data = {
-            cedulaUsuario,
-            nombreUsuario,
-            matriculaVehiculo,
-            fechaReserva: fechaReserva.toISOString().split('T')[0],
-            fechaDevolucion: fechaDevolucion.toISOString().split('T')[0],
-        };
-      const response = await fetch(BACK_URL+"/reserva.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json(); 
-  
-      if (result.error) {
-        alert("Error al realizar la reserva: " + result.error);
-      } else {
-        alert("Reserva exitosa");
-        setCedulaUsuario("");
-        setNombreUsuario("");
-        setMatriculaVehiculo("");
-        setFechaReserva("");
-        setFechaDevolucion("");
-        setVehiculoSeleccionado(null);
-      }
-    } catch (error) {
-      console.error("Error al conectar con el servidor:", error);
-      alert("Error al conectar con el servidor para realizar la reserva.");
-    } finally {
-        setIsLoading(false);
-    }
-};
-
-const calcularDias = () => {
+  const calcularDias = () => {
     if (fechaReserva && fechaDevolucion) {
       const dias = Math.ceil((fechaDevolucion - fechaReserva) / (1000 * 60 * 60 * 24));
       return dias;
@@ -108,10 +54,76 @@ const calcularDias = () => {
     return 0;
   };
 
+  const validarFechas = () => {
+    const dias = calcularDias();
+    return dias >= 1 && dias <= 20;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !cedulaUsuario ||
+      !nombreUsuario ||
+      !matriculaVehiculo ||
+      !fechaReserva ||
+      !fechaDevolucion
+    ) {
+      setError("Por favor, complete todos los campos.");
+      return;
+    }
+
+    if (!validarFechas()) {
+      setError("La reserva debe tener entre 1 y 20 días de diferencia.");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = {
+        cedulaUsuario,
+        nombreUsuario,
+        matriculaVehiculo,
+        fechaReserva: fechaReserva.toISOString().split("T")[0],
+        fechaDevolucion: fechaDevolucion.toISOString().split("T")[0],
+      };
+
+      const response = await fetch(BACK_URL + "/reserva.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.error) {
+        setError("Error al realizar la reserva: " + result.error);
+      } else {
+        alert("Reserva exitosa");
+        setCedulaUsuario("");
+        setNombreUsuario("");
+        setMatriculaVehiculo("");
+        setFechaReserva(null);
+        setFechaDevolucion(null);
+        setVehiculoSeleccionado(null);
+      }
+    } catch (error) {
+      console.error("Error al conectar con el servidor:", error);
+      setError("Error al conectar con el servidor para realizar la reserva.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="reserva-container">
       <div className="reserva-card">
         <h2>Reserva de Vehículos</h2>
+        {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit} className="reserva-form">
           <div className="form-group">
             <label htmlFor="cedula">Cédula del conductor</label>
@@ -189,11 +201,11 @@ const calcularDias = () => {
               <div className="vehiculo-info">
                 <div className="vehiculo-imagen">
                   <img
-                                      src={`${BACK_URL}/${vehiculoSeleccionado.img_veh || "/Public/Img_default.jpg"}`}
-                                      onError={(e) => {
-                                        e.target.src = "/Public/Img_default.jpg";
-                                      }}
-                                    />
+                    src={`${BACK_URL}/${vehiculoSeleccionado.img_veh || "/Public/Img_default.jpg"}`}
+                    onError={(e) => {
+                      e.target.src = "/Public/Img_default.jpg";
+                    }}
+                  />
                 </div>
                 <div className="vehiculo-detalles">
                   <h3>{`${vehiculoSeleccionado.mar_veh} ${vehiculoSeleccionado.mod_veh}`}</h3>
@@ -217,26 +229,26 @@ const calcularDias = () => {
                     <div className="precio-total">
                       <span>{`${vehiculoSeleccionado.precio_veh}`}</span> x Día
                       <div className="total">
-                        ${(vehiculoSeleccionado.precio_veh* calcularDias()).toFixed(2)}
+                        ${(vehiculoSeleccionado.precio_veh * calcularDias()).toFixed(2)}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <button 
-                type="submit" 
-                className={`submit-button ${isLoading ? 'loading' : ''}`}
-                disabled={isLoading}
-              >
-                {isLoading ? "Procesando..." : "RESERVAR"}
-              </button>
             </div>
           )}
+
+          <button
+            type="submit"
+            className={`submit-button ${isLoading ? "loading" : ""}`}
+            disabled={isLoading}
+          >
+            {isLoading ? "Procesando..." : "RESERVAR"}
+          </button>
         </form>
       </div>
     </div>
   );
-
 };
 
 export default Reserva;

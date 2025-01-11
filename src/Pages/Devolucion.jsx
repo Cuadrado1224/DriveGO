@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../Styles/Reserva.css";
 import { BACK_URL } from "../config.js";
+import "../Styles/Devolucion.css";
 
 const Devolucion = () => {
   const [reservas, setReservas] = useState([]);

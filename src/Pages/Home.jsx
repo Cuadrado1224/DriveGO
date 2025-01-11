@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/Home.css";
 import Carusell from "../Components/Banner";
+import ModalVehiculo from "./Info_veh";
 import { BACK_URL } from "../config.js";
 
 const Home = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedVehiculo, setSelectedVehiculo] = useState(null); 
 
-  
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
@@ -29,6 +30,9 @@ const Home = () => {
 
     fetchVehiculos();
   }, []);
+
+  const openModal = (vehiculo) => setSelectedVehiculo(vehiculo); 
+  const closeModal = () => setSelectedVehiculo(null); 
 
   return (
     <div className="home-container">
@@ -63,15 +67,19 @@ const Home = () => {
                   <h3>MODELO: {vehiculo.mod_veh}</h3>
                   <p>MARCA: {vehiculo.mar_veh}</p>
                   <p className="precio">PRECIO: ${vehiculo.precio_veh}</p>
-                  <a href="/" className="btn-1">
+                  <button className="btn-1" onClick={() => openModal(vehiculo)}>
                     Información
-                  </a>
+                  </button>
                 </div>
               </article>
             ))}
           </div>
         )}
       </section>
+
+      {selectedVehiculo && (
+        <ModalVehiculo vehiculo={selectedVehiculo} onClose={closeModal} />
+      )}
     </div>
   );
 };
