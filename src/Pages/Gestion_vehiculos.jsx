@@ -58,7 +58,7 @@ const GestionVehiculos = () => {
   };
 
   useEffect(() => {
-    fetch(BACK_URL+"/Api_DriverGo/Ver_vehiculos.php")
+    fetch(BACK_URL+"/Ver_vehiculos.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {
