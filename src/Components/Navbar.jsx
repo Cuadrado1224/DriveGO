@@ -13,9 +13,9 @@ const linksCliente = [
 
 const linksAdmin = [
   { name: "Dashboard", href: "/administrador" },
-  { name: "Usuarios", href: "/usuarios" },
-  { name: "Reportes", href: "/reportes" },
-  { name: "Configuración", href: "/configuracion" },
+  { name: "Usuarios", href: "/administrador" },
+  { name: "Reportes", href: "/administrador" },
+  { name: "Tarifas", href: "/administrador" },
 ];
 
 const Navbar = () => {
