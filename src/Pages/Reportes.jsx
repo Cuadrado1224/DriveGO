@@ -288,7 +288,6 @@ const Reportes = () => {
                 src={pdfUrl}
                 title="Previsualización del reporte"
                 width="100%"
-                height="500px"
               ></iframe>
               <a
                 href={pdfUrl}
@@ -299,35 +298,6 @@ const Reportes = () => {
             </div>
           )}
         </div>
-        {/*Por si se necesita Guardar en la Base los PDF para luego mostrarlos*/}
-        {/*}
-        <div className="reportes-generados">
-        <h2>Reportes Generados</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Tipo de Reporte</th>
-              <th>Categoría</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportesGenerados.map((reporte, index) => (
-              <tr key={index}>
-                <td>{reporte.fecha}</td>
-                <td>{reporte.tipo}</td>
-                <td>{reporte.categoria}</td>
-                <td>
-                  <a href={reporte.url} download={`reporte_${reporte.categoria}_${reporte.tipo}.pdf`}>
-                    <button>Descargar</button>
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>*/}
       </div>
     </div>
   );

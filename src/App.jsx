@@ -9,6 +9,7 @@ import Contactos from "./Pages/Contactos";
 import Administrador from "./Pages/Administrador";
 import VerificarCorreo from "./Pages/VerificarCorreo";
 import Empleado from "./Pages/Empleado";
+import Historial from "./Pages/Historial";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/administrador" element={<Administrador />} />
           <Route path="/verificar" element={<VerificarCorreo />} />
           <Route path="/empleado" element={<Empleado />} />
+          <Route path="/historial" element={<Historial />} />
         </Routes>
         <Footer />
       </div>

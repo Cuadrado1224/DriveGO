@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../Styles/Modal_User.css";
 
-const ModalUser = ({ closeModal, onLogout, onHistory, onChangePassword }) => {
+const ModalUser = ({ closeModal, onLogout, onChangePassword }) => {
+  const navigate = useNavigate();
+
+  const handleHistoryClick = () => {
+    navigate("/historial");
+    closeModal();
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -11,7 +19,7 @@ const ModalUser = ({ closeModal, onLogout, onHistory, onChangePassword }) => {
         <h3>Opciones de Usuario</h3>
         <ul className="modal-options">
           <li>
-            <button onClick={onHistory}>Historial de reserva</button>
+            <button onClick={handleHistoryClick}>Historial de reserva</button>
           </li>
           <li>
             <button onClick={onChangePassword}>Cambiar Contraseña</button>
