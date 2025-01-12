@@ -59,7 +59,7 @@ const Home = () => {
                     src={`${BACK_URL}/${vehiculo.img_veh || "/public/Img_default.jpg"}`}
                     alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                     onError={(e) => {
-                      e.target.src = "/Public/Img_default.jpg";
+                      e.target.src = "/public/Img_default.jpg";
                     }}
                   />
                 </div>
