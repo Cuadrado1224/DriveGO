@@ -56,7 +56,7 @@ const Home = () => {
               <article key={index} className="oferta">
                 <div className="oferta-img">
                   <img
-                    src={`${BACK_URL}/${vehiculo.img_veh || "/Public/Img_default.jpg"}`}
+                    src={`${BACK_URL}/${vehiculo.img_veh || "/public/Img_default.jpg"}`}
                     alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                     onError={(e) => {
                       e.target.src = "/Public/Img_default.jpg";
