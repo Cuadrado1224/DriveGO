@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../Styles/Reserva.css";
 import { BACK_URL } from "../config.js";
+import "../Styles/Devolucion.css";
 
 const Devolucion = () => {
   const [reservas, setReservas] = useState([]);
@@ -13,7 +13,7 @@ const Devolucion = () => {
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const response = await fetch(BACK_URL+"/Api_DriverGo/getReservas.php");
+        const response = await fetch(BACK_URL+"/getReservas.php");
         const data = await response.json();
         if (data.success) {
           setReservas(data.data);
@@ -44,7 +44,7 @@ const Devolucion = () => {
     };
   
     try {
-      const response = await fetch(BACK_URL+"/Api_DriverGo/devolucion.php", {
+      const response = await fetch(BACK_URL+"/devolucion.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const Devolucion = () => {
   
         const fetchReservas = async () => {
           try {
-            const response = await fetch(BACK_URL+"/Api_DriverGo/getReservas.php");
+            const response = await fetch(BACK_URL+"/getReservas.php");
             const data = await response.json();
             if (data.success) {
               setReservas(data.data);

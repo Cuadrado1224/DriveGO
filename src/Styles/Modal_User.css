@@ -41,12 +41,16 @@
   }
   
   .modal-options button {
+    width: 250px;
     padding: 10px 20px;
-    background: #007bff;
+    background: #050a30;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin: 5px auto;
+    display: block;
   }
   
   .modal-options button:hover {

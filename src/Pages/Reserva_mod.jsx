@@ -1,81 +1,95 @@
 import React, { useState } from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
+import es from "date-fns/locale/es";
+import "react-datepicker/dist/react-datepicker.css";
 import "../Styles/Mod_reserva.css";
-import {BACK_URL} from "../config.js";
+import { BACK_URL } from "../config.js";
 
-const ReservaModal = ({ vehiculo, userInfo, onClose }) => {
+registerLocale("es", es);
+
+const ReservaModal = ({ vehiculo, onClose }) => {
   const [form, setForm] = useState({
     cedula: "",
-    telefono: "",
-    direccion: "",
-    fechaInicio: "",
-    fechaFin: "",
-    vaAConducir: "",
-    aceptaTerminos: false,
-    conductor: {
-      cedula: "",
-      nombre: "",
-      apellido: "",
-      telefono: "",
-      direccion: "",
-    },
+    nombre: "",
+    fechaInicio: null,
+    fechaFin: null,
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleConductorChange = (e) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      conductor: {
-        ...prevForm.conductor,
-        [name]: value,
-      },
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async () => {
-    if (form.vaAConducir === "no" && !form.aceptaTerminos) {
-      alert("Debe aceptar los términos y condiciones.");
-      return;
+  const handleDateChange = (date, field) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      [field]: date,
+    }));
+  };
+
+  const calcularDias = () => {
+    if (form.fechaInicio && form.fechaFin) {
+      return Math.ceil((form.fechaFin - form.fechaInicio) / (1000 * 60 * 60 * 24));
     }
+    return 0;
+  };
+
+  const validarFormulario = () => {
+    if (!form.cedula || !form.nombre || !form.fechaInicio || !form.fechaFin || !vehiculo) {
+      setError("Por favor, complete todos los campos.");
+      return false;
+    }
+
+    const dias = calcularDias();
+    if (dias < 1 || dias > 20) {
+      setError("La reserva debe tener entre 1 y 20 días de diferencia.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validarFormulario()) return;
+
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
 
     const data = {
       cedulaUsuario: form.cedula,
-      nombreUsuario: userInfo.nombre, // Asume que userInfo tiene los datos del usuario.
-      matriculaVehiculo: vehiculo.matricula, // Asume que vehiculo contiene los detalles del vehículo.
-      fechaReserva: form.fechaInicio,
-      fechaDevolucion: form.fechaFin,
+      nombreUsuario: form.nombre,
+      matriculaVehiculo: vehiculo.mat_veh,
+      fechaReserva: form.fechaInicio.toISOString().split("T")[0],
+      fechaDevolucion: form.fechaFin.toISOString().split("T")[0],
     };
 
     try {
-      const response = await fetch(BACK_URL+"/Api_DriverGo/reserva.php", {
+      const response = await fetch(`${BACK_URL}/reserva.php`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       const result = await response.json();
 
       if (response.ok && result.success) {
-        setSuccess(result.success);
-        alert("Reserva realizada con éxito.");
+        setSuccess("Reserva realizada con éxito.");
         onClose();
       } else {
         setError(result.error || "Error al procesar la reserva.");
       }
-    } catch (err) {
+    } catch {
       setError("Error de red o servidor.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -85,125 +99,68 @@ const ReservaModal = ({ vehiculo, userInfo, onClose }) => {
         <h2>Reservar Vehículo</h2>
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
-        <div className="for-group">
+        <div className="form-group">
           <label>Cédula:</label>
           <input
             type="text"
             name="cedula"
             value={form.cedula}
             onChange={handleChange}
+            placeholder="Ingrese su cédula"
           />
         </div>
-        <div className="for-group">
-          <label>Teléfono:</label>
+        <div className="form-group">
+          <label>Nombre Completo:</label>
           <input
             type="text"
-            name="telefono"
-            value={form.telefono}
+            name="nombre"
+            value={form.nombre}
             onChange={handleChange}
+            placeholder="Ingrese su nombre completo"
           />
         </div>
-        <div className="for-group">
-          <label>Dirección:</label>
-          <input
-            type="text"
-            name="direccion"
-            value={form.direccion}
-            onChange={handleChange}
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label>Fecha de Inicio:</label>
+            <DatePicker
+              selected={form.fechaInicio}
+              onChange={(date) => handleDateChange(date, "fechaInicio")}
+              minDate={new Date()}
+              className="form-input"
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Selecciona una fecha"
+              locale={es}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Fecha de Fin:</label>
+            <DatePicker
+              selected={form.fechaFin}
+              onChange={(date) => handleDateChange(date, "fechaFin")}
+              minDate={form.fechaInicio || new Date()}
+              className="form-input"
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Selecciona una fecha"
+              locale={es}
+              required
+            />
+          </div>
         </div>
-        <div className="for-group">
-          <label>Fecha de Inicio:</label>
-          <input
-            type="date"
-            name="fechaInicio"
-            value={form.fechaInicio}
-            onChange={handleChange}
-          />
+        <div className="vehiculo-detalles">
+          <h3>{`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}</h3>
+          <p>Días seleccionados: {calcularDias()}</p>
+          <p>Precio por día: ${vehiculo.precio_veh}</p>
+          <p>
+            Total: ${(vehiculo.precio_veh * calcularDias()).toFixed(2)}
+          </p>
         </div>
-        <div className="for-group">
-          <label>Fecha de Fin:</label>
-          <input
-            type="date"
-            name="fechaFin"
-            value={form.fechaFin}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="for-group">
-          <label>¿Usted va a conducir?</label>
-          <select
-            name="vaAConducir"
-            value={form.vaAConducir}
-            onChange={handleChange}
-          >
-            <option value="">Seleccione</option>
-            <option value="si">Sí</option>
-            <option value="no">No</option>
-          </select>
-        </div>
-        {form.vaAConducir === "no" && (
-          <>
-            <div className="for-group">
-              <label>Cédula del Conductor:</label>
-              <input
-                type="text"
-                name="cedula"
-                value={form.conductor.cedula}
-                onChange={handleConductorChange}
-              />
-            </div>
-            <div className="for-group">
-              <label>Nombre del Conductor:</label>
-              <input
-                type="text"
-                name="nombre"
-                value={form.conductor.nombre}
-                onChange={handleConductorChange}
-              />
-            </div>
-            <div className="for-group">
-              <label>Apellido del Conductor:</label>
-              <input
-                type="text"
-                name="apellido"
-                value={form.conductor.apellido}
-                onChange={handleConductorChange}
-              />
-            </div>
-            <div className="for-group">
-              <label>Teléfono del Conductor:</label>
-              <input
-                type="text"
-                name="telefono"
-                value={form.conductor.telefono}
-                onChange={handleConductorChange}
-              />
-            </div>
-            <div className="for-group">
-              <label>Dirección del Conductor:</label>
-              <input
-                type="text"
-                name="direccion"
-                value={form.conductor.direccion}
-                onChange={handleConductorChange}
-              />
-            </div>
-            <div className="for-group">
-              <label>
-                <input
-                  type="checkbox"
-                  name="aceptaTerminos"
-                  checked={form.aceptaTerminos}
-                  onChange={handleChange}
-                />
-                Acepto los términos y condiciones
-              </label>
-            </div>
-          </>
-        )}
-        <button className="submit-but" onClick={handleSubmit}>
-          Confirmar Reserva
+        <button
+          className={`submit-but ${isLoading ? "loading" : ""}`}
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          {isLoading ? "Procesando..." : "Confirmar Reserva"}
         </button>
         <button className="close-but" onClick={onClose}>
           Cerrar

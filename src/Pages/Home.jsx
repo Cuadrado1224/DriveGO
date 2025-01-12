@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/Home.css";
 import Carusell from "../Components/Banner";
+import ModalVehiculo from "./Info_veh";
 import { BACK_URL } from "../config.js";
 
 const Home = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedVehiculo, setSelectedVehiculo] = useState(null); 
 
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${BACK_URL}/Api_DriverGo/mostrar_veh_home.php`);
+        const response = await fetch(`${BACK_URL}/mostrar_veh_home.php`);
         const data = await response.json();
         if (data.status) {
           setVehiculos(data.data);
@@ -28,6 +30,9 @@ const Home = () => {
 
     fetchVehiculos();
   }, []);
+
+  const openModal = (vehiculo) => setSelectedVehiculo(vehiculo); 
+  const closeModal = () => setSelectedVehiculo(null); 
 
   return (
     <div className="home-container">
@@ -51,7 +56,7 @@ const Home = () => {
               <article key={index} className="oferta">
                 <div className="oferta-img">
                   <img
-                    src={`${BACK_URL}/Api_DriverGo/${vehiculo.img_veh || "/Public/Img_default.jpg"}`}
+                    src={`${BACK_URL}/${vehiculo.img_veh || "/Public/Img_default.jpg"}`}
                     alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                     onError={(e) => {
                       e.target.src = "/Public/Img_default.jpg";
@@ -62,15 +67,19 @@ const Home = () => {
                   <h3>MODELO: {vehiculo.mod_veh}</h3>
                   <p>MARCA: {vehiculo.mar_veh}</p>
                   <p className="precio">PRECIO: ${vehiculo.precio_veh}</p>
-                  <a href="/" className="btn-1">
+                  <button className="btn-1" onClick={() => openModal(vehiculo)}>
                     Información
-                  </a>
+                  </button>
                 </div>
               </article>
             ))}
           </div>
         )}
       </section>
+
+      {selectedVehiculo && (
+        <ModalVehiculo vehiculo={selectedVehiculo} onClose={closeModal} />
+      )}
     </div>
   );
 };

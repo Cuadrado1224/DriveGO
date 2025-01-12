@@ -28,7 +28,7 @@ const Editar_veh_adm = ({ closeModal, vehiculoId }) => {
     const fetchVehicleData = async () => {
       try {
         const response = await axios.get(
-          `${BACK_URL}/Api_DriverGo/Editar_veh.php?id=${vehiculoId}`
+          `${BACK_URL}/Editar_veh.php?id=${vehiculoId}`
         );
         const data = response.data;
         if (data.error) {

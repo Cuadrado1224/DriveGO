@@ -19,7 +19,7 @@ const Alquiler = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          BACK_URL+"/Api_DriverGo/mostrar_veh.php"
+          BACK_URL+"/mostrar_veh.php"
         );
         if (response.data.status) {
           setVehiculos(response.data.data);
@@ -90,26 +90,26 @@ const Alquiler = () => {
   }
 
   return (
-    <div className="alquiler-container">
-      <Categorias
-        onCategoryChange={handleCategoryChange}
-        onBrandChange={handleBrandChange}
-      />
+      <div className="alquiler-container">
+        <Categorias
+          onCategoryChange={handleCategoryChange}
+          onBrandChange={handleBrandChange}
+        />
 
-      <div className="vehiculos-container">
-        {filteredVehiculos.length === 0 ? (
-          <p>No hay vehículos disponibles</p>
-        ) : (
-          filteredVehiculos.map((vehiculo, index) => (
-            <div key={index} className="vehiculo-card">
-              <div className="tit-img">
-                <h3>
-                  {vehiculo.mar_veh} {vehiculo.mod_veh}
-                </h3>
-              </div>
-              <div className="imagen-container">
+        <div className="vehiculos-container">
+          {filteredVehiculos.length === 0 ? (
+            <p>No hay vehículos disponibles</p>
+          ) : (
+            filteredVehiculos.map((vehiculo, index) => (
+              <div key={index} className="vehiculo-card">
+                <div className="tit-img">
+                  <h3>
+                    {vehiculo.mar_veh} {vehiculo.mod_veh}
+                  </h3>
+                </div>
+                <div className="imagen-container">
                 <img
-                  src={`${BACK_URL}/Api_DriverGo/${vehiculo.img_veh}`}
+                  src={`${BACK_URL}/${vehiculo.img_veh}`}
                   alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                   className="vehiculo-image"
                   style={{
@@ -121,40 +121,40 @@ const Alquiler = () => {
                     e.target.src = "/Public/Img_default.jpg";
                   }}
                 />
-              </div>
-              <div className="vehiculo-info">
-                <div className="vehiculo-details">
-                  <div className="vehiculo-item">
-                    <i className="fa-solid fa-car"></i>
-                    <p className="item">: {vehiculo.tip_trans_veh}</p>
+                </div>
+                <div className="vehiculo-info">
+                  <div className="vehiculo-details">
+                    <div className="vehiculo-item">
+                      <i className="fa-solid fa-car"></i>
+                      <p className="item">: {vehiculo.tip_trans_veh}</p>
+                    </div>
+                    <div className="vehiculo-item">
+                      <i className="fa-solid fa-gas-pump"></i>
+                      <p className="item">: {vehiculo.combustible}</p>
+                    </div>
+                    <div className="vehiculo-item">
+                      <i className="fa-solid fa-person"></i>
+                      <p className="item">: {vehiculo.num_ocu_veh} personas</p>
+                    </div>
                   </div>
-                  <div className="vehiculo-item">
-                    <i className="fa-solid fa-gas-pump"></i>
-                    <p className="item">: {vehiculo.combustible}</p>
-                  </div>
-                  <div className="vehiculo-item">
-                    <i className="fa-solid fa-person"></i>
-                    <p className="item">: {vehiculo.num_ocu_veh} personas</p>
+                  <div className="buton">
+                  <button
+                      className="vehiculo-button"
+                      onClick={() => openModal(vehiculo)}
+                    >
+                      MÁS INFORMACIÓN
+                    </button>
                   </div>
                 </div>
-                <div className="buton">
-                <button
-                    className="vehiculo-button"
-                    onClick={() => openModal(vehiculo)}
-                  >
-                    MÁS INFORMACIÓN
-                  </button>
-                </div>
               </div>
-            </div>
-          ))
+            ))
+          )}
+        </div>
+        {selectedVehiculo && (
+          <ModalVehiculo vehiculo={selectedVehiculo} onClose={closeModal} />
         )}
       </div>
-      {selectedVehiculo && (
-        <ModalVehiculo vehiculo={selectedVehiculo} onClose={closeModal} />
-      )}
-    </div>
-  );
-};
+  )
+}
 
 export default Alquiler;

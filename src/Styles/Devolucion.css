@@ -1,0 +1,167 @@
+/* Base container */
+.devolucion-container {
+    padding: clamp(10px, 3vw, 20px);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  /* Form card */
+  .form-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: clamp(16px, 4vw, 24px);
+    width: 100%;
+  }
+  
+  /* Titulo de la sección */
+  .form-title {
+    font-size: clamp(18px, 4vw, 24px);
+    color: #333;
+    margin-bottom: clamp(16px, 4vw, 24px);
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 2vw, 10px);
+    border-bottom: 2px solid #eee;
+    padding-bottom: clamp(12px, 3vw, 16px);
+  }
+  
+  .car-icon {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+  
+  /*form */
+  .devolucion-form {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 3vw, 20px);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  /* elementos Input */
+  .select-input,
+  .description-input,
+  .number-input {
+    padding: clamp(8px, 2vw, 10px);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: clamp(12px, 2vw, 14px);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Checklist styles */
+  .checklist-container {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 3vw, 16px);
+  }
+  
+  .category-section {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    width: 100%;
+  }
+  
+  .category-toggle {
+    padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px);
+    font-size: clamp(12px, 2vw, 14px);
+  }
+  
+  .checklist-items {
+    padding: clamp(12px, 3vw, 16px);
+    gap: clamp(12px, 3vw, 16px);
+  }
+  
+  /* componentes del Switch */
+  .switch-container {
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 12px);
+  }
+  
+  /* Ajuste para la pantalla */
+  @media (max-width: 480px) {
+    .form-title {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+  
+    .checkbox-container {
+      align-items: flex-start;
+    }
+  
+    .switch-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  /* switch estilos */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  .slider.round {
+    border-radius: 24px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  /* Estilo del boton */
+  .submit-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: clamp(10px, 2vw, 12px);
+    font-size: clamp(14px, 2vw, 16px);
+  }

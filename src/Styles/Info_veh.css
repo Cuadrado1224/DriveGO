@@ -9,43 +9,138 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overflow:auto;
+
   }
-  
+
   .modal-content {
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
+    width: 95%;
+    max-width: 800px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    transform: translateY(-20px);
   }
-  
+
+  /*.modal-content h2 {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-size: 1.3rem;
+  }*/
+
+  .modal-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+      /*margin-top: 10px;
+      font-size: 0.9rem;
+      padding: 0 10px;*/
+  }
+
   .modal-info p {
-    margin: 10px 0;
-    font-size: 16px;
+    margin: 0;
+    flex: 1 1 200px;
+    /*margin: 5px 0;
+    font-size: 14px;
+    margin: 3px 0;*/
   }
-  
-  .modal-buttons {
+
+  .modal-button {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    gap: 10px;
+    /*margin-top: 30px;
+    margin-right: 20px;
+    margin-left: 20px;*/
   }
-  
-  .alquilar-button,
-  .close-button {
+
+  .imagen-contain{
+      text-align: center;
+      margin: 20px 0;
+      border: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      /*margin: 10px auto;
+      width: 90%;*/
+  }
+
+  .vehiculo-img{
+      /*border-radius: 15px;
+      max-width: 100%;*/
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+  }
+
+  .alquilar-but,
+  .close-but {
     padding: 10px 20px;
-    border: none;
+    border: 30px;
     border-radius: 5px;
     cursor: pointer;
+    margin:5px;
+    margin-right: 150px;
+    /*font-size:14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    width: 100px;
+    text-align:center;*/
+
   }
-  
-  .alquilar-button {
-    background-color: #007bff;
-    color: #fff;
+
+  .alquilar-but {
+    background-color: #050a30;
+    color: white;
   }
-  
-  .close-button {
-    background-color: #ccc;
+
+  .close-but {
+    background-color: #bb0707;
+    color: white;
   }
-  
+
+@media (max-width: 468px) {
+  .modal-content {
+    padding: 10px;
+    max-width: 85%;
+    width: 100%;
+  }
+  .vehiculo-img {
+      max-width: 95%;
+  }
+  .modal-info p {
+    font-size: 14px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 70%;
+  }
+
+  .modal-info p {
+    font-size: 15px;
+  }
+  .modal-but {
+      flex-direction: column;
+    }
+
+  .button {
+      width: 100%;
+      margin: 0;
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .modal-content {
+    max-width: 450px;
+  }
+
+  .modal-info {
+    justify-content: space-between;
+  }
+}
