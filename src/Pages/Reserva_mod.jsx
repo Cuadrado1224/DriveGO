@@ -13,6 +13,8 @@ const ReservaModal = ({ vehiculo, onClose }) => {
     nombre: "",
     fechaInicio: null,
     fechaFin: null,
+    metodoPago: "", 
+    aceptaTerminos: false, 
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -20,10 +22,10 @@ const ReservaModal = ({ vehiculo, onClose }) => {
   const [success, setSuccess] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -42,8 +44,16 @@ const ReservaModal = ({ vehiculo, onClose }) => {
   };
 
   const validarFormulario = () => {
-    if (!form.cedula || !form.nombre || !form.fechaInicio || !form.fechaFin || !vehiculo) {
-      setError("Por favor, complete todos los campos.");
+    if (
+      !form.cedula ||
+      !form.nombre ||
+      !form.fechaInicio ||
+      !form.fechaFin ||
+      !vehiculo ||
+      !form.metodoPago || 
+      !form.aceptaTerminos 
+    ) {
+      setError("Por favor, complete todos los campos y acepte los términos.");
       return false;
     }
 
@@ -69,6 +79,7 @@ const ReservaModal = ({ vehiculo, onClose }) => {
       matriculaVehiculo: vehiculo.mat_veh,
       fechaReserva: form.fechaInicio.toISOString().split("T")[0],
       fechaDevolucion: form.fechaFin.toISOString().split("T")[0],
+      metodoPago: form.metodoPago,
     };
 
     try {
@@ -149,11 +160,40 @@ const ReservaModal = ({ vehiculo, onClose }) => {
         </div>
         <div className="ve-detalles">
           <h3>{`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}</h3>
-          <p  className="v-detalles">Días seleccionados: {calcularDias()}</p>
-          <p  className="v-detalles">Precio por día: ${vehiculo.precio_veh}</p>
-          <p  className="v-detalles">
+          <p className="v-detalles">Días seleccionados: {calcularDias()}</p>
+          <p className="v-detalles">Precio por día: ${vehiculo.precio_veh}</p>
+          <p className="v-detalles">
             Total: ${(vehiculo.precio_veh * calcularDias()).toFixed(2)}
           </p>
+        </div>
+        <br />
+        <div className="form-group">
+          <label>Método de Pago:</label>
+          <select
+            name="metodoPago"
+            value={form.metodoPago}
+            onChange={handleChange}
+            className="form-input"
+          >
+            <option value="">Seleccione un método</option>
+            <option value="tarjeta">Tarjeta</option>
+            <option value="efectivo">Efectivo</option>
+            <option value="transferencia">Transferencia</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>
+            <input
+              type="checkbox"
+              name="aceptaTerminos"
+              checked={form.aceptaTerminos}
+              onChange={handleChange}
+            />
+            Acepto los{" "}
+            <a href={`${BACK_URL}/contrato.php`} target="_blank" rel="noopener noreferrer">
+              términos y condiciones del contrato
+            </a>
+          </label>
         </div>
         <button
           className={`submit-but ${isLoading ? "loading" : ""}`}
