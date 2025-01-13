@@ -19,7 +19,7 @@ const Alquiler = () => {
     const fetchVehiculos = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`${BACK_URL}/mostrar_veh.php`);
+        const response = await axios.get(`${BACK_URL}/mostrar_veh_home.php`);
         if (response.data.status) {
           setVehiculos(response.data.data);
           setFilteredVehiculos(response.data.data);
