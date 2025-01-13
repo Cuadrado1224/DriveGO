@@ -1,85 +1,98 @@
 import React, { useEffect, useState } from "react";
-import "../Styles/Gestion_vehiculos.css";
 import ModalGes from "../Pages_Admin/Registro_veh_adm";
-import ModalEdi from "../Pages_Admin/Edit_veh_adm";
+import EditVehModal from "../Pages_Admin/Edit_veh_adm";
+import "../Styles/Gestion_vehiculos.css";
 import { BACK_URL } from "../config.js";
 
 const GestionVehiculos = () => {
   const [veh, setVeh] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editingVeh, setEditingVeh] = useState(null);
 
   const handleSessionClick = () => {
-    setIsEditMode(false); 
-    setSelectedVehicle(null); 
-    setShowModal(true); 
-  };
-
-  const handleEditClick = (matricula) => {
-    const vehicle = veh.find((vehi) => vehi.mat_veh === matricula); 
-    if (vehicle) {
-      setSelectedVehicle(vehicle); 
-      setIsEditMode(true); 
-      setShowModal(true); 
-    } else {
-      console.error("Vehículo no encontrado con matrícula:", matricula);
-    }
+    setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
   };
 
-  const handleDeleteClick = (vehi) => {
+  const handleEditClick = (veh) => {
+    setEditingVeh(veh);
+  };
+
+  const handleDeleteClick = (veh) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este vehículo?")) {
-      fetch(BACK_URL+"/Borrar_vehiculo.php", {
+      fetch(`${BACK_URL}/Borrar_vehiculo.php`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ mat_veh: vehi.mat_veh }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mat_veh: veh.mat_veh }),
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.status) {
-            setVeh((prevVeh) => prevVeh.filter((item) => item.mat_veh !== vehi.mat_veh)); 
-            alert(data.message); 
+            setVeh((prevVeh) =>
+              prevVeh.filter((item) => item.mat_veh !== veh.mat_veh)
+            );
+            alert(data.message);
           } else {
-            console.error("Error al eliminar:", data.message);
             alert("Error al eliminar el vehículo.");
           }
         })
         .catch((error) => {
-          console.error("Error:", error);
           alert("Error al eliminar el vehículo.");
         });
     }
   };
 
+  const handleSaveEdit = () => {
+    fetch(`${BACK_URL}/Editar_veh.php`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editingVeh),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status) {
+          setVeh((prevVeh) =>
+            prevVeh.map((v) =>
+              v.mat_veh === editingVeh.mat_veh ? editingVeh : v
+            )
+          );
+          setEditingVeh(null);
+          alert(data.message);
+        } else {
+          alert("Error al actualizar el vehículo.");
+        }
+      })
+      .catch((error) => {
+        alert("Error en la actualización del vehículo.");
+      });
+  };
+
   useEffect(() => {
-    fetch(BACK_URL+"/Ver_vehiculos.php")
+    fetch(`${BACK_URL}/Ver_vehiculos.php`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status) {
-          console.log("Vehículos recibidos:", data.veh);
-          setVeh(data.veh); 
+          setVeh(data.veh);
         } else {
-          console.error("Error:", data.message);
+          alert("Error al cargar vehículos.");
         }
       })
-      .catch((error) => console.error("Error al cargar los vehículos:", error));
+      .catch((error) => alert("Error al cargar vehículos."));
   }, []);
 
   return (
     <div className="card_veh">
       <div className="car-head">
-        <h2 className="car-tit">Gestión de vehículos</h2>
+        <h2 className="car-tit">Gestión de Vehículos</h2>
         <button className="btn-ag" onClick={handleSessionClick}>
           <i className="fa-solid fa-plus"></i> Nuevo Vehículo
         </button>
       </div>
-
       <div className="car-cont">
         <table className="tab-cont">
           <thead>
@@ -90,6 +103,7 @@ const GestionVehiculos = () => {
               <th className="tab-head">Tipo</th>
               <th className="tab-head">Matrícula</th>
               <th className="tab-head">Estado</th>
+              <th className="tab-head">Combustible</th>
               <th className="tab-head">Acciones</th>
             </tr>
           </thead>
@@ -102,11 +116,12 @@ const GestionVehiculos = () => {
                 <td className="tab-cell">{vehi.tip_veh}</td>
                 <td className="tab-cell">{vehi.mat_veh}</td>
                 <td className="tab-cell">{vehi.est_veh}</td>
+                <td className="tab-cell">{vehi.combustible}</td>
                 <td className="table-cell">
                   <div className="btn-activs">
                     <button
                       className="btn-acti"
-                      onClick={() => handleEditClick(vehi.mat_veh)}
+                      onClick={() => handleEditClick(vehi)}
                     >
                       <i className="fa-solid fa-pencil"></i>
                     </button>
@@ -123,16 +138,19 @@ const GestionVehiculos = () => {
           </tbody>
         </table>
       </div>
-      {showModal && (
-        isEditMode ? (
-          <ModalEdi closeModal={closeModal} vehiculoId={selectedVehicle?.mat_veh} />
-        ) : (
-          <ModalGes closeModal={closeModal} />
-        )
+
+      {editingVeh && (
+        <EditVehModal
+          veh={editingVeh}
+          setVeh={setEditingVeh}
+          onSave={handleSaveEdit}
+          onCancel={() => setEditingVeh(null)}
+        />
       )}
+
+      {showModal && <ModalGes closeModal={closeModal} />}
     </div>
   );
 };
 
 export default GestionVehiculos;
-

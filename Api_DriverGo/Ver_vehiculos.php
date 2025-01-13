@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 include 'bd.php';
 
-$query = "SELECT MAR_VEH,MOD_VEH,ANIO_VEH,TIP_VEH,MAT_VEH,EST_VEH FROM VEHICULOS;";
+$query = "SELECT *FROM VEHICULOS;";
 $stmt = $conn->prepare($query);
 
 try {
