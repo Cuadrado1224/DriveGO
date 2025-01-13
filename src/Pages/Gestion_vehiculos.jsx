@@ -46,20 +46,20 @@ const GestionVehiculos = () => {
   };
 
   const handleSaveEdit = () => {
+    const formData = new FormData();
+    Object.entries(editingVeh).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+  
     fetch(`${BACK_URL}/Editar_veh.php`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editingVeh),
+      body: formData, 
     })
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         if (data.status) {
           setVeh((prevVeh) =>
-            prevVeh.map((v) =>
-              v.mat_veh === editingVeh.mat_veh ? editingVeh : v
-            )
+            prevVeh.map((v) => (v.mat_veh === editingVeh.mat_veh ? editingVeh : v))
           );
           setEditingVeh(null);
           alert(data.message);
@@ -67,10 +67,12 @@ const GestionVehiculos = () => {
           alert("Error al actualizar el vehículo.");
         }
       })
-      .catch((error) => {
+      .catch(() => {
         alert("Error en la actualización del vehículo.");
       });
   };
+  
+  
 
   useEffect(() => {
     fetch(`${BACK_URL}/Ver_vehiculos.php`)

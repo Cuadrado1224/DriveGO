@@ -51,7 +51,7 @@ const Edit_veh_adm = ({ veh, onSave, onCancel, setVeh }) => {
               />
             </div>
             <div className="contenido-input">
-              <label>Matricula</label>
+              <label>Matricula</label>async (AC) => {}
               <input
                 type="text"
                 placeholder="Matricula del vehiculo"
@@ -138,7 +138,18 @@ const Edit_veh_adm = ({ veh, onSave, onCancel, setVeh }) => {
                 onChange={(e) => setVeh({ ...veh, chasis: e.target.value })}
               />
             </div>
+            <div className="contenido-input">
+              <label>Imagen del vehículo</label>
+              <input
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  setVeh({ ...veh, img_veh: file });
+                }}
+              />
+            </div>
           </div>
+
           <div className="button-group">
             <button onClick={onSave} className="save-button">
               Guardar Cambios
