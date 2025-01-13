@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Info_veh.css";
 import ModalLogin from "./Login";
 import ModalReserva from "./Reserva_mod";
+import { BACK_URL } from "../config";
+import DefaultImg from "/public/Img_default.jpg"; 
 
 const Info_veh = ({ vehiculo, onClose }) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -35,49 +37,55 @@ const Info_veh = ({ vehiculo, onClose }) => {
           {vehiculo.mar_veh} {vehiculo.mod_veh}
         </h2>
         <div className="imagen-contain">
-                <img
-                  src={`http://localhost/DriveGo/Api_DriverGo/${vehiculo.img_veh}`}
-                  alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
-                  className="vehiculo-img"
-                  style={{
-                    width: "420px",
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                  onError={(e) => {
-                    e.target.src = "/Public/Img_default.jpg";
-                  }}
-                />
-              </div>
+          <img
+            src={`${BACK_URL}/${vehiculo.img_veh || DefaultImg}`}
+            alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
+            className="vehiculo-img"
+            style={{
+              width: "420px",
+              height: "250px",
+              objectFit: "cover",
+            }}
+            onError={(e) => {
+              e.target.src = DefaultImg; // Usa la imagen importada si ocurre un error
+            }}
+          />
+        </div>
         <div className="modal-info">
           <p>
-          <i className="fa-solid fa-car-side"> <strong>Tipo : {vehiculo.tip_veh}</strong>
-          </i>
-             
+            <i className="fa-solid fa-car-side">
+              <strong> Tipo: {vehiculo.tip_veh}</strong>
+            </i>
           </p>
           <p>
-          <i className="fa-solid fa-calendar"> <strong>Año : {vehiculo.anio_veh}</strong> 
-          </i>
+            <i className="fa-solid fa-calendar">
+              <strong> Año: {vehiculo.anio_veh}</strong>
+            </i>
           </p>
           <p>
-          <i className="fa-solid fa-gear"><strong> Transmisión: {vehiculo.tip_trans_veh}</strong> 
-          </i>
+            <i className="fa-solid fa-gear">
+              <strong> Transmisión: {vehiculo.tip_trans_veh}</strong>
+            </i>
           </p>
           <p>
-          <i className="fa-solid fa-gas-pump"> <strong>Combustible: {vehiculo.combustible}</strong> 
-          </i>
+            <i className="fa-solid fa-gas-pump">
+              <strong> Combustible: {vehiculo.combustible}</strong>
+            </i>
           </p>
           <p>
-          <i className="fa-solid fa-user"><strong>Capacidad:{vehiculo.num_ocu_veh} personas</strong> 
-          </i>
+            <i className="fa-solid fa-user">
+              <strong> Capacidad: {vehiculo.num_ocu_veh} personas</strong>
+            </i>
           </p>
           <p>
-          <i className="fa-solid fa-car-side"><strong> Puertas: {vehiculo.num_pue_veh} puertas</strong> 
-          </i>
+            <i className="fa-solid fa-car-side">
+              <strong> Puertas: {vehiculo.num_pue_veh} puertas</strong>
+            </i>
           </p>
           <p>
-          <i className="fa-solid fa-dollar-sign"><strong> Tarifa: {vehiculo.precio_veh} / día</strong> 
-          </i>
+            <i className="fa-solid fa-dollar-sign">
+              <strong> Tarifa: {vehiculo.precio_veh} / día</strong>
+            </i>
           </p>
         </div>
         <div className="modal-buttons">
@@ -103,3 +111,4 @@ const Info_veh = ({ vehiculo, onClose }) => {
 };
 
 export default Info_veh;
+
