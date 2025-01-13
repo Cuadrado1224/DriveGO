@@ -147,11 +147,11 @@ const ReservaModal = ({ vehiculo, onClose }) => {
             />
           </div>
         </div>
-        <div className="vehiculo-detalles">
+        <div className="ve-detalles">
           <h3>{`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}</h3>
-          <p>Días seleccionados: {calcularDias()}</p>
-          <p>Precio por día: ${vehiculo.precio_veh}</p>
-          <p>
+          <p  className="v-detalles">Días seleccionados: {calcularDias()}</p>
+          <p  className="v-detalles">Precio por día: ${vehiculo.precio_veh}</p>
+          <p  className="v-detalles">
             Total: ${(vehiculo.precio_veh * calcularDias()).toFixed(2)}
           </p>
         </div>
