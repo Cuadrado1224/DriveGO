@@ -1,15 +1,13 @@
 <?php
-$host = 'localhost';
-$port = '5433'; 
+$host = 'dpg-ctu98f3qf0us73f25n70-a';
 $dbname = 'drivego';
 $user = 'admin';
-$password = 'admin';
-
+$password = 'OSVOdxpyIn5vQ4Vy1uUMUqdAvF37Gl9t';
 try {
-    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password);
+    $conn = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
 } catch (PDOException $e) {
     die("Error de conexión: " . $e->getMessage());
 }
+
 ?>
