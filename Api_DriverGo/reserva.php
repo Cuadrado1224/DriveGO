@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: " . FRONT_URL);
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -14,7 +15,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificar que los datos necesarios están presentes
-    if (!isset($data['cedulaUsuario'], $data['nombreUsuario'], $data['matriculaVehiculo'], $data['fechaReserva'], $data['fechaDevolucion'])) {
+    if (!isset($data['cedulaUsuario'], $data['nombreUsuario'], $data['matriculaVehiculo'], $data['fechaReserva'], $data['fechaDevolucion'], $data['metodoPago'])) {
         echo json_encode(["error" => "Datos incompletos."]);
         exit;
     }
@@ -24,9 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $matriculaVehiculo = $data['matriculaVehiculo'];
     $fechaReserva = $data['fechaReserva'];
     $fechaDevolucion = $data['fechaDevolucion'];
+    $metodoPago = $data['metodoPago'];
 
     try {
-        // Verificar si el vehículo está disponible
         $stmt = $conn->prepare("SELECT est_veh FROM VEHICULOS WHERE mat_veh = ?");
         $stmt->execute([$matriculaVehiculo]);
         $vehiculo = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -41,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Verificar si ya hay reservas que se solapan con las fechas seleccionadas
         $stmt = $conn->prepare(
             "SELECT * FROM RESERVAS WHERE MATRICULA_VEH = ? AND (
                 (FEC_RES <= ? AND FEC_DEV >= ?) OR
@@ -57,10 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $stmt = $conn->prepare(
-            "INSERT INTO RESERVAS (CED_USU_RES, NOM_USU_RES, MATRICULA_VEH, FEC_RES, FEC_DEV) 
-            VALUES (?, ?, ?, ?, ?)"
+            "INSERT INTO RESERVAS (CED_USU_RES, NOM_USU_RES, MATRICULA_VEH, FEC_RES, FEC_DEV, MET_PAG) 
+            VALUES (?, ?, ?, ?, ?, ?)"
         );
-        $stmt->execute([$cedulaUsuario, $nombreUsuario, $matriculaVehiculo, $fechaReserva, $fechaDevolucion]);
+        $stmt->execute([$cedulaUsuario, $nombreUsuario, $matriculaVehiculo, $fechaReserva, $fechaDevolucion, $metodoPago]);
 
         echo json_encode(["success" => "Reserva creada exitosamente. Vehículo marcado como Alquilado."]);
         exit;

@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     r.est_veh_dev,
                     r.tar_adi,
                     r.des_dev,
+                    r.des_extendida, 
+                    r.met_pag,       
                     v.mod_veh,
                     v.mar_veh,
                     v.tip_veh,
