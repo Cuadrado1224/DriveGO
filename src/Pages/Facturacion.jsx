@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../Styles/Historial.css";
 import { BACK_URL } from "../config.js";
 
-const Historial = () => {
+const Facturacion= () => {
   const [cedula, setCedula] = useState("");
   const [reservas, setReservas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -239,4 +239,4 @@ const Historial = () => {
   );
 };
 
-export default Historial;
+export default Facturacion;

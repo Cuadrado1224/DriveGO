@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Styles/Devolucion.css";
+import "../Styles/InformacionLugares.css";
 import { BACK_URL } from "../config.js";
 
 const condicionVehiculo = {
@@ -106,7 +106,6 @@ const Devolucion = () => {
       return;
     }
   
-    // Crear el objeto de datos
     const data = {
       idReserva,
       estadoVehiculo,
@@ -125,7 +124,6 @@ const Devolucion = () => {
       const result = await response.json();
       if (result.success) {
         alert("Devolución registrada exitosamente.");
-        // Resetear el formulario
         setIdReserva("");
         setSeleccionCondiciones({});
         setCondicionesDescripcion({});
@@ -145,12 +143,14 @@ const Devolucion = () => {
   return (
     <div className="devolucion-container">
       <div className="form-card">
-        <h2 className="form-title">Registrar Devolución de Vehículo</h2>
+        <h2 className="form-title">
+          <i className="car-icon">🚗</i>
+          Registrar Devolución de Vehículo
+        </h2>
         <form onSubmit={handleSubmit} className="devolucion-form">
           <div className="form-group">
-            <label htmlFor="select-reserva">Reserva:</label>
+            <label>Reserva:</label>
             <select
-              id="select-reserva"
               value={idReserva}
               onChange={(e) => setIdReserva(e.target.value)}
               required
@@ -166,6 +166,7 @@ const Devolucion = () => {
               ))}
             </select>
           </div>
+
           <div className="checklist-container">
             {Object.entries(condicionVehiculo).map(([category, items]) => (
               <div key={category} className="category-section">
@@ -177,24 +178,25 @@ const Devolucion = () => {
                   onClick={() => toggleCategory(category)}
                 >
                   {category.charAt(0).toUpperCase() + category.slice(1)}
+                  <span className="toggle-icon">
+                    {activeCategoria === category ? "−" : "+"}
+                  </span>
                 </button>
                 {activeCategoria === category && (
                   <div className="checklist-items">
                     {items.map((item) => (
-                      <div key={item.id} className="checkbox-item">
-                        <input
-                          type="checkbox"
-                          id={item.id}
-                          checked={seleccionCondiciones[item.id] || false}
-                          onChange={() => handleCheckboxChange(item.id)}
-                          className="checkbox-input"
-                        />
-                        <label
-                          htmlFor={item.id}
-                          className="checkbox-label"
-                        >
-                          {item.label}
-                        </label>
+                      <div key={item.id} className="checklist-item">
+                        <div className="checkbox-container">
+                          <input
+                            type="checkbox"
+                            id={item.id}
+                            checked={seleccionCondiciones[item.id] || false}
+                            onChange={() => handleCheckboxChange(item.id)}
+                          />
+                          <label htmlFor={item.id} className="checkbox-label">
+                            {item.label}
+                          </label>
+                        </div>
                         {seleccionCondiciones[item.id] && (
                           <textarea
                             placeholder={`Descripción del estado: ${item.label}`}
@@ -212,6 +214,7 @@ const Devolucion = () => {
               </div>
             ))}
           </div>
+
           <div className="form-group">
             <div className="switch-container">
               <label className="switch">
@@ -224,20 +227,26 @@ const Devolucion = () => {
                 />
                 <span className="slider round"></span>
               </label>
-              <span>Agregar Tarifa Adicional</span>
+              <span className="switch-label">Agregar Tarifa Adicional</span>
             </div>
+
             {tarifaAdicionalVisible && (
-              <input
-                type="number"
-                className="number-input"
-                value={tarifaAdicional}
-                onChange={(e) =>
-                  setTarifaAdicional(parseFloat(e.target.value))
-                }
-                placeholder="Tarifa Adicional"
-              />
+              <div className="tarifa-input">
+                <label>Tarifa Adicional ($):</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={tarifaAdicional}
+                  onChange={(e) =>
+                    setTarifaAdicional(parseFloat(e.target.value))
+                  }
+                  className="number-input"
+                />
+              </div>
             )}
           </div>
+
           <button
             type="submit"
             className={`submit-button ${isLoading ? "loading" : ""}`}

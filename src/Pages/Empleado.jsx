@@ -3,6 +3,7 @@ import "../Styles/Administrador.css";
 import { useNavigate } from "react-router-dom";
 import Reserva from "./Reserva";
 import Devolucion from "./Devolucion";
+import Facturacion from "./Facturacion";
 import ModalConfirm from "./ModalConfirm";
 
 const Empleado = () => {
@@ -16,12 +17,12 @@ const Empleado = () => {
     const navbar = document.querySelector("header");
     const footer = document.querySelector("footer");
     if (navbar) navbar.style.display = "none";
-    if (footer) footer.style.display = "none"; 
+    if (footer) footer.style.display = "none";
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(storedUser || null); 
+    setUser(storedUser || null);
     return () => {
-      if (navbar) navbar.style.display = ""; 
-      if (footer) footer.style.display = ""; 
+      if (navbar) navbar.style.display = "";
+      if (footer) footer.style.display = "";
     };
   }, []);
 
@@ -35,25 +36,27 @@ const Empleado = () => {
         return <Reserva />;
       case "devolucion":
         return <Devolucion />;
+      case "facturacion":
+        return <Facturacion />;
       default:
         return <Reserva />;
     }
   };
 
   const openUserModal = () => {
-    setShowUserModal(true); // Abre el modal de confirmación
+    setShowUserModal(true);
   };
 
   const closeUserModal = () => {
-    setShowUserModal(false); // Cierra el modal de confirmación
+    setShowUserModal(false);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Elimina el usuario del localStorage
-    setUser(null); // Limpia el estado del usuario
-    closeUserModal(); // Cierra el modal
-    navigate("/"); // Redirige al inicio de sesión
-    window.location.reload(); // Recarga la página
+    localStorage.removeItem("user");
+    setUser(null);
+    closeUserModal();
+    navigate("/");
+    window.location.reload();
   };
 
   return (
@@ -88,13 +91,17 @@ const Empleado = () => {
                 {menuVisible && <span>Devoluciones</span>}
               </button>
             </li>
+            <li onClick={() => setSelectedComponent("facturacion")}>
+              <button>
+                <i className="fa-solid fa-file-invoice-dollar"></i>
+                {menuVisible && <span>Facturación</span>}
+              </button>
+            </li>
           </ul>
         </div>
       </div>
 
-      <main className="admin-body">
-        {renderSelectedComponent()}
-      </main>
+      <main className="admin-body">{renderSelectedComponent()}</main>
 
       {showUserModal && (
         <ModalConfirm closeModal={closeUserModal} onLogout={handleLogout} />
