@@ -56,8 +56,8 @@ const Login = ({ closeModal }) => {
           console.log("Inicio de sesión como Administrador");
           closeModal();
           navigate("/administrador");
-        }else if (response.data.rol === "Usuario") {
-          console.log("Inicio de sesión como Administrador");
+        }else if (response.data.rol === "Empleado") {
+          console.log("Inicio de sesión como Empleado");
           closeModal();
           navigate("/empleado");
         }
@@ -127,3 +127,4 @@ const Login = ({ closeModal }) => {
 };
 
 export default Login;
+
