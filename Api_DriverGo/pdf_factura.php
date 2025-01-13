@@ -52,7 +52,7 @@ $pdf = new PDF_Code128('P', 'mm', 'Letter');
 $pdf->SetMargins(17, 17, 17);
 $pdf->AddPage();
 $pdf->SetDrawColor(0, 0, 0);
-$pdf->Image('../public/Logo-sin_fodo.png', 160, 12, 50, 40, 'PNG');
+$pdf->Image('Logo-sin_fodo.png', 160, 12, 50, 40, 'PNG');
 
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->SetTextColor(32, 100, 210);

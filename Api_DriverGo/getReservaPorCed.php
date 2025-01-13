@@ -4,24 +4,37 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: " . FRONT_URL);
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-require_once '../db.php';
+require_once 'bd.php';
 global $pdo;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         if (isset($_GET['cedula'])) {
             $cedula = $_GET['cedula'];
-            $stmt = $pdo->prepare(
-                "SELECT r.ID_RES, r.CED_USU_RES, r.NOM_USU_RES, r.MATRICULA_VEH, r.FEC_RES, r.FEC_DEV, r.EST_VEH_DEV, r.TAR_ADI, r.DES_DEV, 
-                        v.MOD_VEH, v.MARCA_VEH, v.TIP_VEH
-                FROM RESERVAS r
-                LEFT JOIN VEHICULOS v ON r.MATRICULA_VEH = v.MATRICULA
-                WHERE r.CED_USU_RES = ?"
+            $stmt = $conn->prepare(
+                "SELECT 
+                    r.id_res,
+                    r.ced_usu_res,
+                    r.nom_usu_res,
+                    r.matricula_veh,
+                    r.fec_res,
+                    r.fec_dev,
+                    r.est_veh_dev,
+                    r.tar_adi,
+                    r.des_dev,
+                    v.mod_veh,
+                    v.mar_veh,
+                    v.tip_veh,
+                    v.img_veh
+                FROM reservas r
+                LEFT JOIN vehiculos v ON r.matricula_veh = v.mat_veh
+                WHERE r.ced_usu_res = ?"
             );
             $stmt->execute([$cedula]);
             $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,16 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode(["success" => true, "data" => $reservas]);
             exit;
         } else {
-            $stmt = $pdo->prepare(
-                "SELECT r.ID_RES, r.CED_USU_RES, r.NOM_USU_RES, r.MATRICULA_VEH, r.FEC_RES, r.FEC_DEV, r.EST_VEH_DEV, r.TAR_ADI, r.DES_DEV, 
-                        v.MOD_VEH, v.MARCA_VEH, v.TIP_VEH
-                FROM RESERVAS r
-                LEFT JOIN VEHICULOS v ON r.MATRICULA_VEH = v.MATRICULA"
-            );
-            $stmt->execute();
-            $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            echo json_encode(["success" => true, "data" => $reservas]);
+            echo json_encode(["error" => "Error al obtener las reservas, faltan parámetros"]);
             exit;
         }
     } catch (PDOException $e) {
@@ -46,5 +50,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         exit;
     }
 }
-
 ?>
