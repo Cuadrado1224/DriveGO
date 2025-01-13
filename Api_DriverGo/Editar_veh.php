@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 num_ocu_veh = :ocupantes,
                 num_pue_veh = :puertas,
                 chasis = :chasis,
-                combustible = :combustible";
+                combustible = :combus";
 
   
         if ($uploadedFile !== null) {
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':ocupantes' => $ocupantes,
             ':puertas' => $puertas,
             ':chasis' => $chasis,
-            ':combustible' => $combustible
+            ':combus' => $combustible
         ];
 
         if ($uploadedFile !== null) {

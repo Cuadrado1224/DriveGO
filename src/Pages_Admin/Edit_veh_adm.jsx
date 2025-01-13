@@ -5,7 +5,7 @@ const Edit_veh_adm = ({ veh, onSave, onCancel, setVeh }) => {
   if (!veh) return null;
 
   return (
-    <div className="reg_vehiculo">
+    <div className="registro_vehiculo">
       <div className="modal-vehiculo">
         <div className="modal-cont-vehiculo">
           <h2>Editar vehículo</h2>
@@ -51,7 +51,7 @@ const Edit_veh_adm = ({ veh, onSave, onCancel, setVeh }) => {
               />
             </div>
             <div className="contenido-input">
-              <label>Matricula</label>async (AC) => {}
+              <label>Matricula</label>
               <input
                 type="text"
                 placeholder="Matricula del vehiculo"

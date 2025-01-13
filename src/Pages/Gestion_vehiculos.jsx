@@ -63,6 +63,7 @@ const GestionVehiculos = () => {
           );
           setEditingVeh(null);
           alert(data.message);
+          console.log(data.message);
         } else {
           alert("Error al actualizar el vehículo.");
         }
