@@ -1,3 +1,3 @@
 <?php
-define("FRONT_URL", "http://localhost:5173");
+define("FRONT_URL", "https://front-drivego.onrender.com");
 ?>
