@@ -37,8 +37,11 @@ const Edit_veh_adm = ({ veh, onSave, onCancel, setVeh }) => {
               >
                 <option value="">Seleccione tipo</option>
                 <option value="4x4">4x4</option>
-                <option value="familiar">Familiar</option>
-                <option value="economico">Economico</option>
+                <option value="Familiar">Familiar</option>
+                <option value="Economico">Economico</option>
+                <option value="Vehiculo de lujo">Vehiculo de Lujo</option>
+                <option value="Deportivo">Deportivo</option>
+               
               </select>
             </div>
             <div className="contenido-input">
