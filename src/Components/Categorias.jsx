@@ -28,7 +28,6 @@ const Filtros = ({ onCategoryChange, onBrandChange }) => {
     { label: 'Economico', checked: false },
     { label: '4x4', checked: false },
     { label: 'Vehículo de Lujo', checked: false },
-    { label: 'Furgonetas o Vans', checked: false },
     { label: 'Deportivos', checked: false },
     { label: 'Familiar', checked: false },
   ]);
