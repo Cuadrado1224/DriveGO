@@ -114,12 +114,12 @@ button {
 }
 
 .btn_can {
-  background-image: linear-gradient(to left, #34cdab, #32d874);
+  background-image: linear-gradient(to left, #bd0909, #bd0909);
   color: white;
 }
 
 .btn_gua {
-  background-image: linear-gradient(to left, #34cdab, #32d874);
+  background-image: linear-gradient(to left, #050a30,#050a30);
   color: white;
 }
 
