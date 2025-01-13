@@ -69,15 +69,21 @@ const Registro_veh_adm = ({ closeModal }) => {
           <h2>Nuevo vehículo</h2>
           {error && <p style={{ color: "red" }}>{error}</p>}
           <div className="group-input">
-            <div className="conten-input">
-              <label>Marca</label>
-              <input
-                type="text"
-                placeholder="Nombre del vehiculo"
-                value={mar_veh}
-                onChange={(e) => setMar_veh(e.target.value)}
-              />
-            </div>
+          <div className="conten-input">
+                        <label>Marca</label>
+                        <select
+                          value={mar_veh}
+                          onChange={(e) => setMar_veh(e.target.value)}
+                        >
+                          <option value="">Selecciona una marca</option>
+                          <option value="Chevrolet">Chevrolet</option>
+                          <option value="Toyota">Toyota</option>
+                          <option value="Ford">Ford</option>
+                          <option value="Honda">Honda</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        </select>
+                      </div>
             <div className="conten-input">
               <label>Modelo</label>
               <input
