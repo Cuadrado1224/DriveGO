@@ -25,7 +25,7 @@ const FilterSection = ({ title, items, onItemChange }) => (
 
 const Filtros = ({ onCategoryChange, onBrandChange }) => {
   const [categorias, setCategorias] = useState([
-    { label: 'Económico', checked: false },
+    { label: 'Economico', checked: false },
     { label: '4x4', checked: false },
     { label: 'Vehículo de Lujo', checked: false },
     { label: 'Furgonetas o Vans', checked: false },
