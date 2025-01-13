@@ -3,12 +3,13 @@ import "../Styles/Home.css";
 import Carusell from "../Components/Banner";
 import ModalVehiculo from "./Info_veh";
 import { BACK_URL } from "../config.js";
+import DefaultImg from "/public/Img_default.jpg"; 
 
 const Home = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedVehiculo, setSelectedVehiculo] = useState(null); 
+  const [selectedVehiculo, setSelectedVehiculo] = useState(null);
 
   useEffect(() => {
     const fetchVehiculos = async () => {
@@ -31,8 +32,8 @@ const Home = () => {
     fetchVehiculos();
   }, []);
 
-  const openModal = (vehiculo) => setSelectedVehiculo(vehiculo); 
-  const closeModal = () => setSelectedVehiculo(null); 
+  const openModal = (vehiculo) => setSelectedVehiculo(vehiculo);
+  const closeModal = () => setSelectedVehiculo(null);
 
   return (
     <div className="home-container">
@@ -56,10 +57,10 @@ const Home = () => {
               <article key={index} className="oferta">
                 <div className="oferta-img">
                   <img
-                    src={`${BACK_URL}/${vehiculo.img_veh || "/public/Img_default.jpg"}`}
+                    src={`${BACK_URL}/${vehiculo.img_veh || DefaultImg}`}
                     alt={`${vehiculo.mar_veh} ${vehiculo.mod_veh}`}
                     onError={(e) => {
-                      e.target.src = "/public/Img_default.jpg";
+                      e.target.src = DefaultImg; // Usa la imagen importada si ocurre un error
                     }}
                   />
                 </div>
