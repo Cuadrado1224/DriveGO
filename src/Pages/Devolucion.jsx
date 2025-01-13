@@ -106,7 +106,6 @@ const Devolucion = () => {
       return;
     }
   
-    // Crear el objeto de datos
     const data = {
       idReserva,
       estadoVehiculo,
@@ -125,7 +124,6 @@ const Devolucion = () => {
       const result = await response.json();
       if (result.success) {
         alert("Devolución registrada exitosamente.");
-        // Resetear el formulario
         setIdReserva("");
         setSeleccionCondiciones({});
         setCondicionesDescripcion({});
