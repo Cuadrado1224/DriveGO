@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 include 'bd.php';
 
 try {
-    $query = "SELECT * FROM VEHICULOS WHERE precio_veh<>0.00 LIMIT 12 ";
+    $query = "SELECT * FROM VEHICULOS WHERE precio_veh<>0.00";
     $stmt = $conn->prepare($query);
     $stmt->execute();
 
