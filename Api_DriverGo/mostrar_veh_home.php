@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 include 'bd.php';
 
 try {
-    $query = "SELECT * FROM VEHICULOS WHERE precio_veh<>0.00 and est_veh<>'Mantenimiento' est_veh<>'Fuera de servicio'";
+    $query = "SELECT * FROM VEHICULOS WHERE precio_veh<>0.00 and est_veh<>'Mantenimiento' or est_veh<>'Fuera de servicio'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
 
