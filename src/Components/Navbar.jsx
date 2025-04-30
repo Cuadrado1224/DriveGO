@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Navbar.css";
 import { Link } from "react-router-dom";
-import ModalLogin from "./Login";
-import ModalUser from "./Modal_user";
+import Modal from "../Modals/Login";
+import ModalUser from "../Modals/User";
 
 const linksCliente = [
   { name: "Home", href: "/home" },
