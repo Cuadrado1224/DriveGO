@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Navbar.css";
 import { Link } from "react-router-dom";
-import Modal from "./Login";
+import ModalLogin from "./Login";
 import ModalUser from "./Modal_user";
 
 const linksCliente = [
@@ -85,7 +85,7 @@ const Navbar = () => {
         )}
       </nav>
 
-      {showLoginModal && <Modal closeModal={closeLoginModal} />}
+      {showLoginModal && <ModalLogin closeModal={closeLoginModal} />}
       {showUserModal && (
         <ModalUser
           closeModal={closeUserModal}
